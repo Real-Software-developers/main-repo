@@ -1,17 +1,87 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>e-Spaza Sign In & Signup</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <aside class="container">
+      <aside class="form-container">
+        <mark class="logo-container">
+          <img src="images/spazaloginpic.jpg" alt="e-Spaza Logo" />
+          <p class="slogan">
+            Shop anything you want at the lowest price possible
+          </p>
+        </mark>
+        <form id="login-form">
+          <header class="header">
+            <h2>e-Spaza Sign In</h2>
+          </header>
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="styles.css">
-  <title>Vanilla JavaScript App</title>
-</head>
+          <aside class="role-selection">
+            <label for="role">Sign In as:</label>
+            <select id="role" name="role">
+              <option value="buyer">Buyer</option>
+              <option value="seller">Seller</option>
+              <option value="admin">Admin</option>
+            </select>
+          </aside>
+          <mark class="input-field">
+            <input type="email" placeholder="Email" required />
+          </mark>
+          <mark class="input-field">
+            <input type="password" placeholder="Password" required />
+          </mark>
+          <mark class="action">
+            <button type="submit">Sign In</button>
+          </mark>
 
-<body>
-  <main>
-    <h1>Vanilla JavaScript App</h1>
-  </main>
-</body>
+          <mark class="switch-form">
+            <p>
+              Not registered?
+              <code><a href="#" onclick="toggleForms()">Sign Up</a></code>
+            </p>
+          </mark>
+          <mark class="forgot-password">
+            <nav><a href="#">Forgot Password?</a></nav>
+          </mark>
+        </form>
 
+        <form id="signup-form" style="display: none">
+          <header class="header">
+            <h2>e-Spaza Signup</h2>
+          </header>
+          <aside class="role-selection">
+            <label for="signup-role">Sign up as:</label>
+            <select id="signup-role" name="role">
+              <option value="buyer">Buyer</option>
+              <option value="seller">Seller</option>
+              <option value="admin">Admin</option>
+            </select>
+          </aside>
+          <mark class="input-field">
+            <input type="email" placeholder="Email" required />
+          </mark>
+          <mark class="input-field">
+            <input type="text" placeholder="Username" required />
+          </mark>
+          <mark class="input-field">
+            <input type="password" placeholder="Password" required />
+          </mark>
+          <mark class="action">
+            <button type="submit">Sign Up</button>
+          </mark>
+          <mark class="switch-form">
+            <p>
+              Already registered?
+              <code><a href="#" onclick="toggleForms()">Sign In</a></code>
+            </p>
+          </mark>
+        </form>
+      </aside>
+    </aside>
+    <script src="script.js"></script>
+  </body>
 </html>
