@@ -1,8 +1,11 @@
 {
   "name": "vanilla-basic",
   "version": "1.0.0",
-  "scripts": { 
+  "scripts": {
     "start": "sirv ./src public --cors --single --no-clear --port 8000",
     "test": "jest"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0"
   }
 }
