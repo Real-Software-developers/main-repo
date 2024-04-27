@@ -1,89 +1,86 @@
-import { AuthenticationService } from "./authenticationService.mjs";
-import { UserRepository } from "./userRepository.mjs";
-import { firestore, authentication } from "./firebase.mjs";
+document.addEventListener('DOMContentLoaded', () => {
+  const loadCarsBtn = document.getElementById('loadCarsBtn');
+  const carList = document.getElementById('carList');
+  cars = [];
 
-const authenticationService = new AuthenticationService({
-  firebaseAuth: authentication,
-});
+  function loadCars(){
+      fetch('/api/cars')
+      .then(response => response.json())
+      .then(data => {
+          cars = data;
+          carList.innerHTML = '';
+          data.forEach((car, index) => {
+              const carCard = document.createElement('div');
+              carCard.classList.add('car-card');
+              carCard.innerHTML = `
+                  <h2>${car.make} ${car.model}</h2>
+                  <p><strong>Year:</strong> ${car.year}</p>
+                  <p><strong>Make:</strong> ${car.make}</p>
+                  <p><strong>Model:</strong> ${car.model}</p>
+                  <p><strong>Price:</strong> R${car.price}</p>
+                  <button class="btn btn-remove" data-index="${index}">Remove</button>
+              `;
+              carList.appendChild(carCard);
+          });
+      })
+      .catch(error => {
+          console.error('Error fetching car data:', error);
+      });
 
-const userRepository = new UserRepository({
-  database: firestore,
-});
-
-async function onSIgnUp(e) {
-  e.preventDefault();
-
-  const formData = new FormData(e.target);
-
-  const email = formData.get("email");
-  const password = formData.get("password");
-  const username = formData.get("username");
-  const role = formData.get("role");
-
-  const response = await authenticationService.RegisterUserWithEmailAndPassword(
-    {
-      email: email,
-      password: password,
-    }
-  );
-
-  if (response !== "error") {
-    //
-    const user = {
-      id: response,
-      name: username,
-      email: email,
-      password: password,
-      role: role,
-    };
-
-    const dbResponse = await userRepository.createUser({ user: user });
-    alert(dbResponse);
   }
-}
-
-async function onSignIn(e) {
-  e.preventDefault();
-
-  const formData = new FormData(e.target);
-
-  const email = formData.get("email");
-  const password = formData.get("password");
-  const role = formData.get("role");
-
-  const response = await authenticationService.SignInWithEmailAndPassword({
-    email: email,
-    password: password,
+  loadCarsBtn.addEventListener('click', () => {
+           loadCars();
+      
   });
 
-  if (response !== "error") {
-    const user = await userRepository.getuserById({
-      id: response,
-    });
-
-    if (role !== user.role) {
-      alert("user not found");
-    } else {
-      //move to next page according to role
-      alert("signed in");
-    }
-  }
+function addCar(newCar) {
+  fetch('/api/cars', {
+      method: 'POST',
+      headers: {
+          'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(newCar)
+  })
+      .then(response => response.json())
+      .then(data => {
+          console.log('Success:', data);
+          loadCarsBtn.click();
+      })
+      .catch(error => {
+          console.error('Error:', error);
+      });
 }
-
-const signUpLink = document.getElementById("sign-up");
-const loginLink = document.getElementById("login");
-const loginForm = document.getElementById("login-form");
-const signUpForm = document.getElementById("signup-form");
-
-signUpLink.addEventListener("click", () => {
-  loginForm.style.display = "none";
-  signUpForm.style.display = "block";
+const carForm = document.getElementById('carForm');
+carForm.addEventListener('submit', event => {
+  event.preventDefault();
+  const make = document.getElementById('make').value;
+  const model = document.getElementById('model').value;
+  const year = document.getElementById('year').value;
+  const price = document.getElementById('price').value;
+  addCar({ make, model, year, price });
+  carForm.reset();
 });
 
-loginLink.addEventListener("click", () => {
-  loginForm.style.display = "block";
-  signUpForm.style.display = "none";
+// Function to remove a car
+function removeCar(index) {
+  console.log('Index:', index);
+  fetch('/api/cars?index='+index, {
+      method: 'DELETE'
+  })
+      .then(response => response.json())
+      .then(data => {
+          console.log('Success:', data);
+          loadCars();
+      })
+      .catch(error => {
+          console.error('Error:', error);
+      });
+}
+// Event delegation for remove buttons
+carList.addEventListener('click', event => {
+  if (event.target.classList.contains('btn-remove')) {
+      const index = event.target.dataset.index;
+      removeCar(index);
+  }
 });
-
-signUpForm.addEventListener("submit", (e) => onSIgnUp(e));
-loginForm.addEventListener("submit", (e) => onSignIn(e));
+});
