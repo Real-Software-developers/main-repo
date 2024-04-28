@@ -138,8 +138,8 @@
 	const analytics = getAnalytics(app);
 	const database = getDatabase();
 
-	// Function to submit the form and write data to Firebase Realtime Database
-	document.getElementById('shopOwnerForm').addEventListener('submit', function(e) {
+	// Function to submit the form and write data to Firebase Realtime Database and Firestore
+	document.getElementById('shopOwnerForm').addEventListener('submit', async function(e) {
 		e.preventDefault();
 		
 		// Get form values
@@ -153,7 +153,7 @@
 		// Reference to the Firebase Realtime Database
 		const databaseRef = ref(database, 'shopOwners');
 
-		// Push data to Firebase
+		// Push data to Firebase Realtime Database
 		const newShopOwnerRef = push(databaseRef);
 		set(newShopOwnerRef, {
 			name: name,
@@ -168,6 +168,23 @@
 			document.getElementById('shopOwnerForm').reset();
 		}).catch((error) => {
 			console.error("Error adding shop owner data to Firebase Realtime Database:", error);
+		});
+
+		// Reference to the "shops" collection
+		const shopsRef = ref(database, 'shops');
+
+		// Push data to Firebase Realtime Database for "shops" collection
+		const newShopRef = push(shopsRef);
+		set(newShopRef, {
+			shopName: shopName,
+			description: description,
+			location: location
+		}).then(() => {
+			console.log("Shop details added to Firebase Realtime Database for 'shops' collection");
+			// Reset form
+			document.getElementById('shopOwnerForm').reset();
+		}).catch((error) => {
+			console.error("Error adding shop details to Firebase Realtime Database for 'shops' collection:", error);
 		});
 	});
 </script>
