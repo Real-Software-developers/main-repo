@@ -384,7 +384,7 @@
 		// Function to retrieve and display shops data
 		// Function to retrieve and display shops data
 function displayShops() {
-    const shopsRef = ref(database, 'shops');
+    const shopsRef = ref(database, 'Approved_Shops');
     get(shopsRef).then((snapshot) => {
         if (snapshot.exists()) {
             console.log("Shops Data:");
