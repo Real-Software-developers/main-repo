@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="Responsive Bootstrap4 Shop Template, Created by Imran Hossain from https://imransdesign.com/">
+
+	<!-- title -->
+	<title>Contact</title>
+
+	<!-- favicon -->
+	<link rel="shortcut icon" type="image/png" href="assets/img/favicon.png">
+	<!-- google font -->
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Poppins:400,700&display=swap" rel="stylesheet">
+	<!-- fontawesome -->
+	<link rel="stylesheet" href="assets/css/all.min.css">
+	<!-- bootstrap -->
+	<link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+	<!-- owl carousel -->
+	<link rel="stylesheet" href="assets/css/owl.carousel.css">
+	<!-- magnific popup -->
+	<link rel="stylesheet" href="assets/css/magnific-popup.css">
+	<!-- animate css -->
+	<link rel="stylesheet" href="assets/css/animate.css">
+	<!-- mean menu css -->
+	<link rel="stylesheet" href="assets/css/meanmenu.min.css">
+	<!-- main style -->
+	<link rel="stylesheet" href="assets/css/main.css">
+	<!-- responsive -->
+	<link rel="stylesheet" href="assets/css/responsive.css">
+
+</head>
+<body>
+	
+	<!--PreLoader-->
+    <div class="loader">
+        <div class="loader-inner">
+            <div class="circle"></div>
+        </div>
+    </div>
+    <!--PreLoader Ends-->
+	
+
+
+	
+	<!-- breadcrumb-section -->
+	<div class="breadcrumb-section breadcrumb-bg">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-8 offset-lg-2 text-center">
+					<div class="breadcrumb-text">
+						<p>sell stuff online.</p>
+						<h1>add your products</h1>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- end breadcrumb section -->
+<!-- product section -->
+
+
+        <!-- contact form -->
+	<div class="contact-from-section mt-150 mb-150">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-8 mb-5 mb-lg-0">
+					<div class="form-title">
+						<h2>Upload your products to sell in minutes!</h2>
+						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur, ratione! Laboriosam est, assumenda. Perferendis, quo alias quaerat aliquid. Corporis ipsum minus voluptate? Dolore, esse natus!</p>
+					</div>
+				 	<div id="form_status"></div>
+					<div class="contact-form">
+						<form type="POST" id="ProductsForm">
+							<p>
+                                <input type="text" placeholder="ShopName" name="Shopname" id="shopname">
+							</p>
+						<!--	<p>
+								<input type="tel" placeholder="Phone" name="phone" id="phone">
+								<input type="email" placeholder="Email" name="email" id="email">
+							</p>--->
+
+                            <p>
+                                <input type="text" placeholder="ProductName" name="name" id="productname">
+                            </p>
+
+                            <p>
+                                <input type="text" placeholder="Price" name="price" id="productprice">
+                            </p>
+							<p><textarea name="message" id="message" cols="30" rows="10" placeholder=" brief product description"></textarea></p>
+							
+							<p><input type="submit" value="Submit"></p>
+						</form>
+					</div>
+				</div>
+				<div class="col-lg-4">
+					<div class="contact-form-wrap">
+						<div class="contact-form-box">
+							<h4><i class="far fa-clock"></i> Send email</h4>
+							<p>Admin will get back to you in few minutes!</p>
+						</div>
+						
+						<div class="contact-form-box">
+							<h4><i class="fas fa-address-book"></i> Contact</h4>
+							<p>Phone: +27 71 221 8169 <br> Email: aspaza811@gmail.com</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- end contact form -->
+
+
+<
+
+
+<script type="module">
+	// Import the functions you need from the SDKs you need
+	import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-app.js";
+	import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-analytics.js";
+	import { getDatabase, ref, push, set } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-database.js";
+
+	// Your web app's Firebase configuration
+	const firebaseConfig = {
+		apiKey: "AIzaSyCDvwIj5sxqJE-yIrkQhBtPLAWDlKxY-zU",
+		authDomain: "entiresystem-7ea4f.firebaseapp.com",
+		databaseURL: "https://entiresystem-7ea4f-default-rtdb.asia-southeast1.firebasedatabase.app",
+		projectId: "entiresystem-7ea4f",
+		storageBucket: "entiresystem-7ea4f.appspot.com",
+		messagingSenderId: "25619596774",
+		appId: "1:25619596774:web:e296b99271610195690227",
+		measurementId: "G-LXVGY3MW22"
+	};
+
+	// Initialize Firebase
+	const app = initializeApp(firebaseConfig);
+	const analytics = getAnalytics(app);
+	const database = getDatabase();
+
+	// Function to submit the form and write data to Firebase Realtime Database and Firestore
+	document.getElementById('ProductsForm').addEventListener('submit', async function(e) {
+		e.preventDefault();
+		
+		// Get form values
+		const shopName = document.getElementById('shopname').value;
+        const productName = document.getElementById('productname').value;
+		/*const phone = document.getElementById('phone').value;
+		const email = document.getElementById('email').value;*/
+		const productPrice = document.getElementById('productprice').value;
+		const description = document.getElementById('message').value;
+
+		// Reference to the Firebase Realtime Database
+		const databaseRef = ref(database, 'Products');
+
+		// Push data to Firebase Realtime Database
+		const newProductRef = push(databaseRef);
+		set(newProductRef, {
+			shopName: shopName,
+            productName: productName,
+            productPrice: productPrice,
+			description: description
+		}).then(() => {
+			console.log("Product data added to Firebase Realtime Database");
+			// Reset form
+			document.getElementById('ProductsForm').reset();
+		}).catch((error) => {
+			console.error("Error adding product data to Firebase Realtime Database:", error);
+		});
+
+		// Reference to the "shops" collection
+    	// const shopsRef = ref(database, 'shops');
+
+		// // Push data to Firebase Realtime Database for "shops" collection
+		// const newShopRef = push(shopsRef);
+		// set(newShopRef, {
+		// 	shopName: shopName,
+		// 	description: description,
+		// 	location: location
+		// }).then(() => {
+		// 	console.log("Shop details added to Firebase Realtime Database for 'shops' collection");
+		// 	// Reset form
+		// 	document.getElementById('shopOwnerForm').reset();
+		// }).catch((error) => {
+		// 	console.error("Error adding shop details to Firebase Realtime Database for 'shops' collection:", error);
+		// });
+	});
+
+</script>
+    <!-- Include your JavaScript file -->
+	
+	<script src="assets/js/jquery-1.11.3.min.js"></script>
+	<!-- bootstrap -->
+	<script src="assets/bootstrap/js/bootstrap.min.js"></script>
+	<!-- count down -->
+	<script src="assets/js/jquery.countdown.js"></script>
+	<!-- isotope -->
+	<script src="assets/js/jquery.isotope-3.0.6.min.js"></script>
+	<!-- waypoints -->
+	<script src="assets/js/waypoints.js"></script>
+	<!-- owl carousel -->
+	<script src="assets/js/owl.carousel.min.js"></script>
+	<!-- magnific popup -->
+	<script src="assets/js/jquery.magnific-popup.min.js"></script>
+	<!-- mean menu -->
+	<script src="assets/js/jquery.meanmenu.min.js"></script>
+	<!-- sticker js -->
+	<script src="assets/js/sticker.js"></script>
+	<!-- form validation js -->
+	<script src="assets/js/form-validate.js"></script>
+	<!-- main js -->
+	<script src="assets/js/main.js"></script>
+	
+</body>
+</html>
