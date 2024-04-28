@@ -75,12 +75,14 @@
 					<div class="contact-form">
 						<form type="POST" id="fruitkha-contact" onSubmit="return valid_datas( this );">
 							<p>
-								<input type="text" placeholder="provide us your token" name="token" id="token">
+								<input type="text" placeholder="provide us your token"  id="token" >
                                 
 							</p>
 							
 							
-							<p><input type="submit" value="Sign-In"></p>
+							
+							<p><a href="/review/" id="signInLink">Sign In</a>
+							</p>
 						</form>
 					</div>
 				</div>
@@ -103,7 +105,27 @@
 <
 
 
+
+<script>
+// You can still use JavaScript to handle the click event if needed
+document.getElementById('signInLink').addEventListener('click', function(event) {
+    // Prevent the default action of the anchor tag (i.e., prevent navigation)
+    event.preventDefault();
+
+	const token = document.getElementById('token').value;
+
+	if(token==="xY9pZ2QcR5sF3aW8"){
+		window.location.href = '/review/';
+	}else{
+		alert("Invalid token!")
+	}
+
 	
+
+    
+});
+
+</script>
 	<!-- jquery -->
 	<script src="assets/js/jquery-1.11.3.min.js"></script>
 	<!-- bootstrap -->
