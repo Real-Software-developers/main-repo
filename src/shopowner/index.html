@@ -73,7 +73,8 @@
 					</div>
 				 	<div id="form_status"></div>
 					<div class="contact-form">
-						<form type="POST" id="fruitkha-contact" onSubmit="return valid_datas( this );">
+						<form type="POST" id="shopOwnerForm">
+						
 							<p>
 								<input type="text" placeholder="Name" name="name" id="name">
                                 <input type="text" placeholder="ShopName" name="Shopname" id="shopname">
@@ -87,7 +88,7 @@
                                 <input type="text" placeholder="Location of shop" name="Location" id="Location">
                             </p>
 							<p><textarea name="message" id="message" cols="30" rows="10" placeholder="small shop description"></textarea></p>
-							<input type="hidden" name="token" value="FsWga4&@f6aw" />
+							
 							<p><input type="submit" value="Submit"></p>
 						</form>
 					</div>
@@ -114,8 +115,64 @@
 <
 
 
+<script type="module">
+	// Import the functions you need from the SDKs you need
+	import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-app.js";
+	import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-analytics.js";
+	import { getDatabase, ref, push, set } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-database.js";
+
+	// Your web app's Firebase configuration
+	const firebaseConfig = {
+		apiKey: "AIzaSyCDvwIj5sxqJE-yIrkQhBtPLAWDlKxY-zU",
+		authDomain: "entiresystem-7ea4f.firebaseapp.com",
+		databaseURL: "https://entiresystem-7ea4f-default-rtdb.asia-southeast1.firebasedatabase.app",
+		projectId: "entiresystem-7ea4f",
+		storageBucket: "entiresystem-7ea4f.appspot.com",
+		messagingSenderId: "25619596774",
+		appId: "1:25619596774:web:e296b99271610195690227",
+		measurementId: "G-LXVGY3MW22"
+	};
+
+	// Initialize Firebase
+	const app = initializeApp(firebaseConfig);
+	const analytics = getAnalytics(app);
+	const database = getDatabase();
+
+	// Function to submit the form and write data to Firebase Realtime Database
+	document.getElementById('shopOwnerForm').addEventListener('submit', function(e) {
+		e.preventDefault();
+		
+		// Get form values
+		const name = document.getElementById('name').value;
+		const shopName = document.getElementById('shopname').value;
+		const phone = document.getElementById('phone').value;
+		const email = document.getElementById('email').value;
+		const location = document.getElementById('Location').value;
+		const description = document.getElementById('message').value;
+
+		// Reference to the Firebase Realtime Database
+		const databaseRef = ref(database, 'shopOwners');
+
+		// Push data to Firebase
+		const newShopOwnerRef = push(databaseRef);
+		set(newShopOwnerRef, {
+			name: name,
+			shopName: shopName,
+			phone: phone,
+			email: email,
+			location: location,
+			description: description
+		}).then(() => {
+			console.log("Shop owner data added to Firebase Realtime Database");
+			// Reset form
+			document.getElementById('shopOwnerForm').reset();
+		}).catch((error) => {
+			console.error("Error adding shop owner data to Firebase Realtime Database:", error);
+		});
+	});
+</script>
+    <!-- Include your JavaScript file -->
 	
-	<!-- jquery -->
 	<script src="assets/js/jquery-1.11.3.min.js"></script>
 	<!-- bootstrap -->
 	<script src="assets/bootstrap/js/bootstrap.min.js"></script>
