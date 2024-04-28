@@ -24,7 +24,7 @@ export class AuthenticationService {
     }
   };
 
-  SignInWithEmailAndPassword = async ({ email, password }) => {
+  SignInWithEmailAndPassword = async ({ email, password, role }) => {
     try {
       const userCredential = await signInWithEmailAndPassword(
         this.firebaseAuth,
