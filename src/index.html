@@ -108,9 +108,9 @@
 					<div class="col-md-12 col-lg-7 offset-lg-1 offset-xl-0">
 						<div class="hero-text">
 							<div class="hero-text-tablecell">
-								<h1 id="hello.">Hello worever wellcome to, </h1>
+								<h1 id="hello."></h1>
 								<p class="subtitle">{our website's name}</p>
-								<h1>Shop anything at your fingertips!</h1>
+								
 								
 							</div>
 						</div>
@@ -348,15 +348,14 @@
 		const name = localStorage.getItem('username');
 		const hello= document.getElementById('hello.');
 
-		hello.innerHTML=`Hello ${name} shop in any of these shops`;
-
+		
         // Check if user email is stored in local storage
-        if (userEmail) {
-            console.log("User email retrieved from local storage:", userEmail);
-			console.log("User name retrieved from local storage:", name);
+        if (name) {
+            hello.innerHTML=`Hi, ${name} ,`;
+
             // You can use userEmail as needed in this HTML file
         } else {
-            console.log("No user email found in local storage");
+            hello.innerHTML=`Hello customer get started to shop!`;
         }
     </script>
 	<!-- end copyright -->
@@ -460,6 +459,8 @@ function displayShops() {
 		// Call functions to display shop owners and shops data
 		displayShopOwners();
 		displayShops();
+		localStorage.clear();
+
 	</script>
 	
 	
