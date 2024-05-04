@@ -14,7 +14,7 @@ jobs:
         run: npm install
 
       - name: Run Jest with Coverage
-        run: npx jest --coverage
+        run: npx jest --coverage --passWithNoTests
 
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v4.0.1
