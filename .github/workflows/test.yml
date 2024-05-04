@@ -17,6 +17,6 @@ jobs:
         run: npx jest --coverage
 
       - name: Upload coverage reports to Codecov
-        run: npx codecov
-        env:
-          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+        uses: codecov/codecov-action@v4.0.1
+        with:
+            token: ${{ secrets.CODECOV_TOKEN }}
