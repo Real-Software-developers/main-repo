@@ -17,6 +17,6 @@ jobs:
         run: npx jest --coverage --passWithNoTests
 
       - name: Upload coverage reports to Codecov 
-        uses: codecov/codecov-action@v4.0.1
-        with:
+        run: npx codecov
+        env:
             token: ${{ secrets.CODECOV_TOKEN }}
