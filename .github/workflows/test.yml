@@ -1,0 +1,22 @@
+name: Jest Tests with Coverage
+
+on:  [push]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run Jest with Coverage
+        run: npx jest --coverage
+
+      - name: Upload coverage reports to Codecov
+        run: npx codecov
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
