@@ -388,9 +388,9 @@
 			get(shopOwnersRef).then((snapshot) => {
 				if (snapshot.exists()) {
 					console.log("Shop Owners Data:");
-					snapshot.forEach((childSnapshot) => {
-						console.log(childSnapshot.key, childSnapshot.val());
-					});
+					// snapshot.forEach((childSnapshot) => {
+					// 	console.log(childSnapshot.key, childSnapshot.val());
+					// });
 				} else {
 					console.log("No shop owners found.");
 				}
@@ -443,7 +443,17 @@ function displayShops() {
                 singleProductItem.appendChild(shopDescription);
                 singleProductItem.appendChild(productPrice);
                 singleProductItem.appendChild(cartBtn);
+				const shopName = productPrice.innerHTML;
 
+				//
+				
+				//
+				cartBtn.addEventListener('click', function(){
+					//store shopname, first.
+					localStorage.setItem('shopName', shopName);
+				
+					window.location="/src/shop/"
+				});
                 // Append single product item to row container
                 shopItem.appendChild(singleProductItem);
                 rowContainer.appendChild(shopItem);
