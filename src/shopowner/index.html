@@ -137,6 +137,9 @@
 	const analytics = getAnalytics(app);
 	const database = getDatabase();
 
+	emailjs.init("_9cCImG_eM_ixRlo6");
+
+
 	// Function to submit the form and write data to Firebase Realtime Database and Firestore
 	document.getElementById('shopOwnerForm').addEventListener('submit', async function(e) {
 		e.preventDefault();
@@ -168,6 +171,23 @@
 		}).catch((error) => {
 			console.error("Error adding shop owner data to Firebase Realtime Database:", error);
 		});
+
+		try {
+        // Send email so that admin can verify a shop  using EmailJS
+        await emailjs.send("service_a5itk56", "template_89469et", {
+			ownerName: name,
+            userEmail: email,
+            shopName: shopName,
+            location: location,
+            description: description
+
+			
+        });
+        console.log('Email to admin sent successfully!');
+    } catch (error) {
+        console.error("Error sending email to admin:", error);
+    }
+
 
 		// Reference to the "shops" collection
 		const shopsRef = ref(database, 'shops');
