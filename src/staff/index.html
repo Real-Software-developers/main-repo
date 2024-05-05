@@ -68,7 +68,7 @@
 			<div class="row">
 				<div class="col-lg-8 mb-5 mb-lg-0">
 					<div class="form-title">
-						<h2>Have your packages delivered in minutes!</h2>
+						<h2>Register or login as staff</h2>
 						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur, ratione! Laboriosam est, assumenda. Perferendis, quo alias quaerat aliquid. Corporis ipsum minus voluptate? Dolore, esse natus!</p>
 					</div>
 				 	<div id="form_status"></div>
@@ -77,6 +77,11 @@
 							<p>
 								<input type="text" placeholder="Name" name="name" id="name">
 								<input type="email" placeholder="Email" name="email" id="email">
+							</p>
+							<p>
+								<input type="text" placeholder="phone" name="phone" id="phone">
+								<input type="text" placeholder="shopName" name="shopName" id="shopName">
+
 							</p>
 							<p>
 								<input type="password" placeholder="Password" name="password" id="password">
@@ -178,6 +183,9 @@
 			const email = document.getElementById('email').value;
 			const password = document.getElementById('password').value;
 			const message = document.getElementById('message').value;
+			const shopName = document.getElementById('shopName').value;
+			const phone = document.getElementById('phone').value;
+			
 			localStorage.setItem('username',name);
 	
 			try {
@@ -189,17 +197,19 @@
 				await sendEmailVerification(auth.currentUser);
 	
 				// Reference to the Firebase Realtime Database
-				const databaseRef = ref(database, 'shoppers');
+				const databaseRef = ref(database, 'Staff');
 	
 				// Push data to Firebase Realtime Database for shoppers collection
-				const newShopperRef = push(databaseRef);
-				set(newShopperRef, {
+				const newStaffRef = push(databaseRef);
+				set(newStaffRef, {
 					userId: user.uid, // Add user ID to shopper data
 					name: name,
 					email: email,
+					phone: phone,
+					shopName: shopName,
 					message: message
 				}).then(() => {
-					console.log("Shopper data added to Firebase Realtime Database");
+					console.log("Staff data added to Firebase Realtime Database");
 					// Store email and username in local storage
 					localStorage.setItem('userEmail', email);
 					localStorage.setItem('username', name);
@@ -207,7 +217,7 @@
 					// Reset form
 					document.getElementById('Register').reset();
 				}).catch((error) => {
-					console.error("Error adding shopper data to Firebase Realtime Database:", error);
+					console.error("Error adding staff data to Firebase Realtime Database:", error);
 				});
 			} catch (error) {
 				console.error("Error creating user:", error);
