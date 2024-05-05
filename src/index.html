@@ -401,63 +401,72 @@
 	
 		// Function to retrieve and display shops data
 		// Function to retrieve and display shops data
-function displayShops() {
-    const shopsRef = ref(database, 'Approved_Shops');
-    get(shopsRef).then((snapshot) => {
-        if (snapshot.exists()) {
-            console.log("Shops Data:");
-            // Get the container element for shops
-            const rowContainer = document.querySelector('#rowdata');
-            // Clear previous content
-            rowContainer.innerHTML = '';
+				var n = "";
+		function displayShops() {
+			
+			const shopsRef = ref(database, 'Approved_Shops');
+			get(shopsRef).then((snapshot) => {
+				if (snapshot.exists()) {
+					console.log("Shops Data:");
+					// Get the container element for shops
+					const rowContainer = document.querySelector('#rowdata');
+					// Clear previous content
+					rowContainer.innerHTML = '';
 
-            snapshot.forEach((childSnapshot) => {
-                const shopData = childSnapshot.val();
-                console.log(shopData);
+					
+						// Append single product item to row container
+					
+				// Iterate through each shop
+		snapshot.forEach((childSnapshot) => {
+			const shopData = childSnapshot.val();
 
-                // Create elements for a single shop
-                const shopItem = document.createElement('div');
-                shopItem.classList.add('col-lg-4', 'col-md-6', 'text-center');
+			// Create elements for a single shop
+			const shopItem = document.createElement('div');
+			shopItem.classList.add('col-lg-4', 'col-md-6', 'text-center');
 
-                const singleProductItem = document.createElement('div');
-                singleProductItem.classList.add('single-product-item');
+			const singleProductItem = document.createElement('div');
+			singleProductItem.classList.add('single-product-item');
 
-                const productImage = document.createElement('div');
-                productImage.classList.add('product-image');
-                productImage.innerHTML = '<a href="#"><img src="/shop.jpeg" alt=""></a>';
+			const productImage = document.createElement('div');
+			productImage.classList.add('product-image');
+			productImage.innerHTML = '<a href="#"><img src="/shop.jpeg" alt=""></a>';
 
-                const shopDescription = document.createElement('h3');
-                shopDescription.textContent = shopData.description;
+			const shopDescription = document.createElement('h3');
+			shopDescription.textContent = shopData.description;
 
-                const productPrice = document.createElement('p');
-                productPrice.classList.add('product-price');
-                productPrice.innerHTML = `<span>${shopData.location}</span> ${shopData.shopName}`;
+			const productPrice = document.createElement('p');
+			productPrice.classList.add('product-price');
+			productPrice.innerHTML = `<span>${shopData.location}</span> ${shopData.shopName}`;
 
-                const cartBtn = document.createElement('a');
-                cartBtn.classList.add('cart-btn');
-                cartBtn.href = '#';
-                cartBtn.innerHTML = '<i class="fas fa-shopping-cart"></i> Visit Shop.';
+			const cartBtn = document.createElement('a');
+			cartBtn.classList.add('cart-btn');
+			cartBtn.innerHTML = '<i class="fas fa-shopping-cart"></i> Visit Shop.';
 
-                // Append elements to single product item
-                singleProductItem.appendChild(productImage);
-                singleProductItem.appendChild(shopDescription);
-                singleProductItem.appendChild(productPrice);
-                singleProductItem.appendChild(cartBtn);
-				const shopName = productPrice.innerHTML;
+			// Append elements to single product item
+			singleProductItem.appendChild(productImage);
+			singleProductItem.appendChild(shopDescription);
+			singleProductItem.appendChild(productPrice);
+			singleProductItem.appendChild(cartBtn);
 
-				//
-				
-				//
-				cartBtn.addEventListener('click', function(){
-					//store shopname, first.
-					localStorage.setItem('shopName', shopName);
-				
-					window.location="/src/shop/"
-				});
-                // Append single product item to row container
-                shopItem.appendChild(singleProductItem);
-                rowContainer.appendChild(shopItem);
-            });
+			// Append single product item to shop item
+			shopItem.appendChild(singleProductItem);
+
+			// Append shop item to row container
+			rowContainer.appendChild(shopItem);
+
+			// Add click event listener to "Visit Shop" button
+			cartBtn.addEventListener('click', function() {
+				// Retrieve shop name from the product price element
+				const shopName = shopData.shopName;
+
+				// Store shop name in local storage
+				localStorage.setItem("Shopname", shopName);
+
+				// Navigate to the shop page
+				window.location.href = "/getstuff/";
+			});
+		});
+
         } else {
             console.log("No shops found.");
         }
@@ -467,9 +476,9 @@ function displayShops() {
 }
 
 		// Call functions to display shop owners and shops data
-		displayShopOwners();
+		//displayShopOwners();
 		displayShops();
-		localStorage.clear();
+		//localStorage.clear();
 
 	</script>
 	
