@@ -126,10 +126,7 @@
 								<p class="subtitle">Fresh & Organic</p>
 								<p>Delicious Seasonal "food" at your local shop</p>
 								<h1>Welcome to {Shopname!}</h1>
-								<div class="hero-btns">
-									<a href="shop.html" class="boxed-btn">Fruit Collection</a>
-									<a href="contact.html" class="bordered-btn">Contact Us</a>
-								</div>
+								
 							</div>
 						</div>
 					</div>
@@ -214,7 +211,12 @@
 		</div>
 	</div>
 	<!-- end features list section -->
+	<div class="hero-btns" style="text-align: center;">
+		<a href="/products/" class="boxed-btn">Add Products</a>
 
+		<a href="/products/" class="boxed-btn">Remove Products</a>
+	
+	</div>
 	<!-- product section -->
 	<div class="product-section mt-150 mb-150">
 		<div class="container">
@@ -226,31 +228,25 @@
 					</div>
 				</div>
 			</div>
-
-			<div class="row">
-				<div class="col-lg-4 col-md-6 text-center">
-					<div class="single-product-item">
-						<div class="product-image">
-							<a href="single-product.html"><img src="assets/img/products/product-img-1.jpg" alt=""></a>
-						</div>
-						<h3>Strawberry</h3>
-						<p class="product-price"><span>Per Kg</span> R47,99 </p>
-						<a href="cart_checkout/" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
-					</div>
-				</div>
+              
+			<div class="row" id="some.">
 				
-				<div class="col-lg-4 col-md-6 text-center">
-					<div class="single-product-item">
-						<div class="product-image">
-							<a href="single-product.html"><img src="assets/img/products/product-img-1.jpg" alt=""></a>
+				
+					<div class="col-lg-4 col-md-6 text-center">
+						<div class="single-product-item">
+							<div class="product-image">
+								<a href="#"><img src="assets/img/products/product-img-1.jpg" alt=""></a>
+							</div>
+							<h3 id ="description">description </h3>
+							<p class="product-price" id="shopName"><span id="location">location</span> NameOfShop </p>
+							<a href="#" class="cart-btn"><i class="fas fa-shopping-cart"></i> Visit Shop.</a>
 						</div>
-						<h3>Strawberry</h3>
-						<p class="product-price"><span>Per Kg</span> R47,99 </p>
-						<a href="cart_checkout/" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
 					</div>
 					
+				
+					
 						
-			</div>
+			</div>	
 		</div>
 	</div>
 	<!-- end product section -->
@@ -431,6 +427,115 @@
 		</div>
 	</div>
 	<!-- end copyright -->
+	
+	<script type="module">
+		// Import the functions you need from the SDKs you need
+		import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-app.js";
+		import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-analytics.js";
+		import { getDatabase, ref, get } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-database.js";
+	
+		// Your web app's Firebase configuration
+		const firebaseConfig = {
+			apiKey: "AIzaSyCDvwIj5sxqJE-yIrkQhBtPLAWDlKxY-zU",
+			authDomain: "entiresystem-7ea4f.firebaseapp.com",
+			databaseURL: "https://entiresystem-7ea4f-default-rtdb.asia-southeast1.firebasedatabase.app",
+			projectId: "entiresystem-7ea4f",
+			storageBucket: "entiresystem-7ea4f.appspot.com",
+			messagingSenderId: "25619596774",
+			appId: "1:25619596774:web:e296b99271610195690227",
+			measurementId: "G-LXVGY3MW22"
+		};
+	
+		// Initialize Firebase
+		const app = initializeApp(firebaseConfig);
+		const analytics = getAnalytics(app);
+		const database = getDatabase();
+	
+		// Function to retrieve and display shop owners data
+		/*function displayShopOwners() {
+			const shopOwnersRef = ref(database, 'shopOwners');
+			get(shopOwnersRef).then((snapshot) => {
+				if (snapshot.exists()) {
+					console.log("Shop Owners Data:");
+					snapshot.forEach((childSnapshot) => {
+						console.log(childSnapshot.key, childSnapshot.val());
+					});
+				} else {
+					console.log("No shop owners found.");
+				}
+			}).catch((error) => {
+				console.error("Error retrieving shop owners data:", error);
+			});
+		}*/
+	
+		// Function to retrieve and display products data
+function displayProducts() {
+    const productsRef = ref(database, 'Products');
+    get(productsRef).then((snapshot) => {
+        if (snapshot.exists()) {
+            console.log("Products Data:");
+			
+			
+           
+              
+            // Get the container element for shops
+            const rowContainer = document.getElementById('some.');
+            // Clear previous content
+            rowContainer.innerHTML = '';
+
+            snapshot.forEach((childSnapshot) => {
+                const productData = childSnapshot.val();
+                console.log(productData);
+				// get shop name element for shop
+				const Name = productData.shopName;
+			// console.log(Name);
+            // const shopNameElement = document.getElementById('shopNamePlaceholder');
+            // shopNameElement.textContent = Name;
+                // Create a card for a single product
+                const shopItem = document.createElement('div');
+                shopItem.classList.add('col-lg-4', 'col-md-6', 'text-center');
+
+                const singleProductItem = document.createElement('div');
+                singleProductItem.classList.add('single-product-item');
+                 // an image on a card
+                const productImage = document.createElement('div');
+                productImage.classList.add('product-image');
+                productImage.innerHTML = '<a href="#"><img src="assets/img/products/product-img-1.jpg" alt=""></a>';
+                   // name of product
+                const pName = document.createElement('h3');
+                pName.textContent = productData.productName;      // first bolded text
+                   // product description 
+                const productPrice = document.createElement('p');
+                productPrice.classList.add('product-price');
+                productPrice.innerHTML = `<span>${productData.description}</span> ${productData.productPrice}`;
+
+                const cartBtn = document.createElement('a');
+                cartBtn.classList.add('cart-btn');
+                cartBtn.href = 'cart_checkout/';
+                cartBtn.innerHTML = '<i class="fas fa-shopping-cart"></i> Remove Product.';
+
+                // Append elements to single product item
+                singleProductItem.appendChild(productImage);
+                singleProductItem.appendChild(pName);
+                singleProductItem.appendChild(productPrice);
+                singleProductItem.appendChild(cartBtn);
+
+                // Append single product item to row container
+                shopItem.appendChild(singleProductItem);
+                rowContainer.appendChild(shopItem);
+            });
+        } else {
+            console.log("No products found.");
+        }
+    }).catch((error) => {
+        console.error("Error retrieving products data:", error);
+    });
+}
+
+		// Call function to display products data
+		//displayShopOwners();
+		displayProducts();
+	</script>
 	
 	<!-- jquery -->
 	<script src="assets/js/jquery-1.11.3.min.js"></script>
