@@ -109,17 +109,29 @@
 			</div>
 
 			<div id = "rowdata" class="row">
-				<div class="col-lg-4 col-md-6 text-center">
-					<div class="single-product-item">
-						<div class="product-image">
-							<a href="#"><img src="assets/img/products/product-img-1.jpg" alt=""></a>
-						</div>
-						<h3 id ="description">description </h3>
-						<p class="product-price" id="shopName"><span id="location">location</span> NameOfShop </p>
-						<a href="#" class="cart-btn"><i class="fas fa-shopping-cart"></i> Approve</a>
-						<a href="#" class="cart-btndisaprove"><i class="fas fa-shopping-cart"></i> Disaprove</a>
+				
+				
+			</div>
+		</div>
+	</div>
+	<!-- end product section -->
+
+
+	<!--APROVED-->
+	<!-- product section -->
+	<div class="product-section mt-150 mb-150">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-8 offset-lg-2 text-center">
+					<div class="section-title">	
+						<h3><span class="orange-text">These </span> Are Approved</h3>
+						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid, fuga quas itaque eveniet beatae optio.</p>
 					</div>
 				</div>
+			</div>
+
+			<div id = "rowdataapproved" class="row">
+				
 				
 			</div>
 		</div>
@@ -155,118 +167,222 @@
 	</div>
 	<!-- end copyright -->
 	<script type="module">
-		// Import the functions you need from the SDKs you need
-		import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-app.js";
-		import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-analytics.js";
-		import { getDatabase, ref, get, push, set } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-database.js";
-	
-		// Your web app's Firebase configuration
-		const firebaseConfig = {
-			apiKey: "AIzaSyCDvwIj5sxqJE-yIrkQhBtPLAWDlKxY-zU",
-			authDomain: "entiresystem-7ea4f.firebaseapp.com",
-			databaseURL: "https://entiresystem-7ea4f-default-rtdb.asia-southeast1.firebasedatabase.app",
-			projectId: "entiresystem-7ea4f",
-			storageBucket: "entiresystem-7ea4f.appspot.com",
-			messagingSenderId: "25619596774",
-			appId: "1:25619596774:web:e296b99271610195690227",
-			measurementId: "G-LXVGY3MW22"
-		};
-	
-		// Initialize Firebase
-		const app = initializeApp(firebaseConfig);
-		const analytics = getAnalytics(app);
-		const database = getDatabase();
-	
-		// Function to retrieve and display shop owners data
-		function displayShopOwners() {
-			const shopOwnersRef = ref(database, 'shopOwners');
-			get(shopOwnersRef).then((snapshot) => {
-				if (snapshot.exists()) {
-					console.log("Shop Owners Data:");
-					snapshot.forEach((childSnapshot) => {
-						console.log(childSnapshot.key, childSnapshot.val());
-					});
-				} else {
-					console.log("No shop owners found.");
-				}
-			}).catch((error) => {
-				console.error("Error retrieving shop owners data:", error);
-			});
-		}
-	
-		// Function to retrieve and display shops data
-		function displayShops() {
-			const shopsRef = ref(database, 'shops');
-			get(shopsRef).then((snapshot) => {
-				if (snapshot.exists()) {
-					console.log("Shops Data:");
-					const rowContainer = document.querySelector('#rowdata');
-					rowContainer.innerHTML = '';
-	
-					snapshot.forEach((childSnapshot) => {
-						const shopData = childSnapshot.val();
-						console.log(shopData);
-	
-						const shopItem = document.createElement('div');
-						shopItem.classList.add('col-lg-4', 'col-md-6', 'text-center');
-	
-						const singleProductItem = document.createElement('div');
-						singleProductItem.classList.add('single-product-item');
-	
-						const productImage = document.createElement('div');
-						productImage.classList.add('product-image');
-						productImage.innerHTML = '<a href="#"><img src="assets/img/products/product-img-1.jpg" alt=""></a>';
-	
-						const shopDescription = document.createElement('h3');
-						shopDescription.textContent = shopData.description;
-	
-						const productPrice = document.createElement('p');
-						productPrice.classList.add('product-price');
-						productPrice.innerHTML = `<span>${shopData.location}</span> ${shopData.shopName}`;
-	
-						const cartBtn = document.createElement('a');
-						cartBtn.classList.add('cart-btn');
-						
-						cartBtn.innerHTML = '<i class="fas fa-shopping-cart"></i> Approve.';
-	
-						// Add click event listener to the approve button
-						cartBtn.addEventListener('click', function() {
-							// Reference to the "Approved_Shops" collection
-							const approvedShopsRef = ref(database, 'Approved_Shops');
-	
-							// Push the shop's data to the "Approved_Shops" collection
-							const newShopRef = push(approvedShopsRef);
-							set(newShopRef, {
-								description: shopData.description,
-								location: shopData.location,
-								shopName: shopData.shopName
-							}).then(() => {
-								console.log("Shop approved and added to Approved_Shops collection");
-							}).catch((error) => {
-								console.error("Error approving shop:", error);
-							});
-						});
-						cartBtn.href = '/';
-						singleProductItem.appendChild(productImage);
-						singleProductItem.appendChild(shopDescription);
-						singleProductItem.appendChild(productPrice);
-						singleProductItem.appendChild(cartBtn);
-	
-						shopItem.appendChild(singleProductItem);
-						rowContainer.appendChild(shopItem);
-					});
-				} else {
-					console.log("No shops found.");
-				}
-			}).catch((error) => {
-				console.error("Error retrieving shops data:", error);
-			});
-		}
-	
+		// Import only the necessary functions from Firebase
+		// Import only the necessary functions from Firebase
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-app.js";
+import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-analytics.js";
+import { getDatabase, ref, get, push, set, remove } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-database.js";
+
+// Your web app's Firebase configuration
+const firebaseConfig = {
+    apiKey: "AIzaSyCDvwIj5sxqJE-yIrkQhBtPLAWDlKxY-zU",
+    authDomain: "entiresystem-7ea4f.firebaseapp.com",
+    databaseURL: "https://entiresystem-7ea4f-default-rtdb.asia-southeast1.firebasedatabase.app",
+    projectId: "entiresystem-7ea4f",
+    storageBucket: "entiresystem-7ea4f.appspot.com",
+    messagingSenderId: "25619596774",
+    appId: "1:25619596774:web:e296b99271610195690227",
+    measurementId: "G-LXVGY3MW22"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
+const database = getDatabase();
+
+// Function to retrieve and display shop owners data
+
+// Function to retrieve and display shops data
+function displayShops() {
+    const shopsRef = ref(database, 'shops');
+    get(shopsRef).then((snapshot) => {
+        if (snapshot.exists()) {
+            console.log("Shops Data:");
+            const rowContainer = document.querySelector('#rowdata');
+            rowContainer.innerHTML = '';
+
+            snapshot.forEach((childSnapshot) => {
+                const shopData = childSnapshot.val();
+                console.log(shopData);
+
+                const shopItem = document.createElement('div');
+                shopItem.classList.add('col-lg-4', 'col-md-6', 'text-center');
+
+                const singleProductItem = document.createElement('div');
+                singleProductItem.classList.add('single-product-item');
+
+                const productImage = document.createElement('div');
+                productImage.classList.add('product-image');
+                productImage.innerHTML = '<a href="#"><img src="/shop.jpeg" alt=""></a>';
+
+                const shopDescription = document.createElement('h3');
+                shopDescription.textContent = shopData.description;
+
+                const productPrice = document.createElement('p');
+                productPrice.classList.add('product-price');
+                productPrice.innerHTML = `<span>${shopData.location}</span> ${shopData.shopName}`;
+
+                const cartBtn = document.createElement('a');
+                cartBtn.classList.add('cart-btn');
+                cartBtn.innerHTML = '<i class="fas fa-shopping-cart"></i> Approve.';
+
+				//disaprove button.
+
+				const disapprove = document.createElement('a');
+                disapprove.classList.add('cart-btn');
+                disapprove.innerHTML = '<i class="fas fa-shopping-cart"></i> deny.';
+                disapprove.href = '#';
+
+
+
+                singleProductItem.appendChild(productImage);
+                singleProductItem.appendChild(shopDescription);
+                singleProductItem.appendChild(productPrice);
+                singleProductItem.appendChild(cartBtn);
+				singleProductItem.appendChild(disapprove);
+                shopItem.appendChild(singleProductItem);
+                rowContainer.appendChild(shopItem);
+
+				disapprove.addEventListener('click', function() {
+    const shopToRemoveRef = ref(database, `shops/${childSnapshot.key}`);
+
+    // Remove the shop from the "shops" collection
+    remove(shopToRemoveRef)
+        .then(() => {
+            console.log('Shop removed from shops collection after disapproval');
+        })
+        .catch((error) => {
+            console.error('Error removing shop from shops collection:', error);
+        });
+});
+
+                cartBtn.addEventListener('click', function() {
+                    const approvedShopsRef = ref(database, 'Approved_Shops');
+                    const newShopRef = push(approvedShopsRef);
+                    set(newShopRef, {
+                        description: shopData.description,
+                        location: shopData.location,
+                        shopName: shopData.shopName
+						//send email.
+                    }).then(() => {
+                        console.log("Shop approved and added to Approved_Shops collection");
+
+                        // Get the key of the newly added shop
+                        const newShopKey = newShopRef.key;
+
+                        console.log(newShopKey);
+
+                        // Get a reference to the specific shop in the "shops" collection
+                        const shopToRemoveRef = ref(database, `shops/${childSnapshot.key}`);
+
+                        console.log(shopToRemoveRef);
+                        // Remove the shop from the "shops" collection
+                        remove(shopToRemoveRef)
+                            .then(() => {
+                                console.log('Shop removed from shops collection after approval');
+                            })
+                            .catch((error) => {
+                                console.error('Error removing shop from shops collection:', error);
+                            });
+                    }).catch((error) => {
+                        console.error("Error approving shop:", error);
+                    });
+                });
+            });
+        } else {
+            console.log("No shops found.");
+        }
+    }).catch((error) => {
+        console.error("Error retrieving shops data:", error);
+    });
+}
+function displayShopsApproved() {
+    const shopsRef = ref(database, 'Approved_Shops');
+    get(shopsRef).then((snapshot) => {
+        if (snapshot.exists()) {
+            console.log("Shops Data:");
+            // Get the container element for shops
+            const rowContainer = document.querySelector('#rowdataapproved');
+            // Clear previous content
+            rowContainer.innerHTML = '';
+
+            snapshot.forEach((childSnapshot) => {
+                const shopData = childSnapshot.val();
+                console.log(shopData);
+
+                // Create elements for a single shop
+                const shopItem = document.createElement('div');
+                shopItem.classList.add('col-lg-4', 'col-md-6', 'text-center');
+
+                const singleProductItem = document.createElement('div');
+                singleProductItem.classList.add('single-product-item');
+
+                const productImage = document.createElement('div');
+                productImage.classList.add('product-image');
+                productImage.innerHTML = '<a href="#"><img src="/shop.jpeg" alt=""></a>';
+
+                const shopDescription = document.createElement('h3');
+                shopDescription.textContent = shopData.description;
+
+                const productPrice = document.createElement('p');
+                productPrice.classList.add('product-price');
+                productPrice.innerHTML = `<span>${shopData.location}</span> ${shopData.shopName}`;
+
+                const cartBtn = document.createElement('a');
+                cartBtn.classList.add('cart-btn');
+                cartBtn.href = '#';
+                cartBtn.innerHTML = '<i class="fas fa-shopping-cart"></i> Visit Shop.';
+
+				const disapprove = document.createElement('a');
+                disapprove.classList.add('cart-btn');
+                disapprove.innerHTML = '<i class="fas fa-shopping-cart"></i> Delete.';
+                disapprove.href = '#';
+				singleProductItem.appendChild(productImage);
+                singleProductItem.appendChild(shopDescription);
+                singleProductItem.appendChild(productPrice);
+                singleProductItem.appendChild(cartBtn);
+				singleProductItem.appendChild(disapprove);
+                // Append single product item to row container
+                shopItem.appendChild(singleProductItem);
+                rowContainer.appendChild(shopItem);
+
+
+				disapprove.addEventListener('click', function() {
+    const shopToRemoveRef = ref(database, `Approved_Shops/${childSnapshot.key}`);
+
+    // Remove the shop from the "shops" collection
+    remove(shopToRemoveRef)
+        .then(() => {
+            console.log('Shop removed from shops collection after disapproval');
+        })
+        .catch((error) => {
+            console.error('Error removing shop from shops collection:', error);
+        });
+});
+
+
+                // Append elements to single product item
+               
+            });
+        } else {
+            console.log("No shops found.");
+        }
+    }).catch((error) => {
+        console.error("Error retrieving shops data:", error);
+    });
+}
+
 		// Call functions to display shop owners and shops data
-		displayShopOwners();
+		
 		displayShops();
+
+// Call functions to display shop owners and shops data
+displayShopsApproved();
+
+					
 	</script>
+	
+		
 	
 	
 	
@@ -293,3 +409,4 @@
 
 </body>
 </html>
+					

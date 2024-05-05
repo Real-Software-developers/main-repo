@@ -108,8 +108,9 @@
 					<div class="col-md-12 col-lg-7 offset-lg-1 offset-xl-0">
 						<div class="hero-text">
 							<div class="hero-text-tablecell">
+								<h1 id="hello."></h1>
 								<p class="subtitle">{our website's name}</p>
-								<h1>Shop anything at your fingertips!</h1>
+								
 								
 							</div>
 						</div>
@@ -340,6 +341,23 @@
 			</div>
 		</div>
 	</div>
+	<script>
+        // Retrieve user email from local storage
+        const userEmail = localStorage.getItem('userEmail');
+
+		const name = localStorage.getItem('username');
+		const hello= document.getElementById('hello.');
+
+		
+        // Check if user email is stored in local storage
+        if (name) {
+            hello.innerHTML=`Hi, ${name} ,`;
+
+            // You can use userEmail as needed in this HTML file
+        } else {
+            hello.innerHTML=`Hello customer get started to shop!`;
+        }
+    </script>
 	<!-- end copyright -->
 	<script type="module">
 		// Import the functions you need from the SDKs you need
@@ -370,9 +388,9 @@
 			get(shopOwnersRef).then((snapshot) => {
 				if (snapshot.exists()) {
 					console.log("Shop Owners Data:");
-					snapshot.forEach((childSnapshot) => {
-						console.log(childSnapshot.key, childSnapshot.val());
-					});
+					// snapshot.forEach((childSnapshot) => {
+					// 	console.log(childSnapshot.key, childSnapshot.val());
+					// });
 				} else {
 					console.log("No shop owners found.");
 				}
@@ -406,7 +424,7 @@ function displayShops() {
 
                 const productImage = document.createElement('div');
                 productImage.classList.add('product-image');
-                productImage.innerHTML = '<a href="#"><img src="assets/img/products/product-img-1.jpg" alt=""></a>';
+                productImage.innerHTML = '<a href="#"><img src="/shop.jpeg" alt=""></a>';
 
                 const shopDescription = document.createElement('h3');
                 shopDescription.textContent = shopData.description;
@@ -425,7 +443,17 @@ function displayShops() {
                 singleProductItem.appendChild(shopDescription);
                 singleProductItem.appendChild(productPrice);
                 singleProductItem.appendChild(cartBtn);
+				const shopName = productPrice.innerHTML;
 
+				//
+				
+				//
+				cartBtn.addEventListener('click', function(){
+					//store shopname, first.
+					localStorage.setItem('shopName', shopName);
+				
+					window.location="/src/shop/"
+				});
                 // Append single product item to row container
                 shopItem.appendChild(singleProductItem);
                 rowContainer.appendChild(shopItem);
@@ -441,6 +469,8 @@ function displayShops() {
 		// Call functions to display shop owners and shops data
 		displayShopOwners();
 		displayShops();
+		localStorage.clear();
+
 	</script>
 	
 	
