@@ -111,19 +111,22 @@
 document.getElementById('signInLink').addEventListener('click', function(event) {
     // Prevent the default action of the anchor tag (i.e., prevent navigation)
     event.preventDefault();
-
-	const token = document.getElementById('token').value;
-
-	if(token==="xY9pZ2QcR5sF3aW8"){
-		window.location.href = '/review';
-	}else{
-		alert("Invalid token!")
-	}
-
-	
-
-    
+    // Get the value of the token input
+    const token = document.getElementById('token').value;
+    // Log the value of the token for debugging
+    console.log("Token entered:", token);
+    // Check if the entered token matches the expected token
+    if (token === "xY9pZ2QcR5sF3aW8") {
+        // Redirect to the review page if the token is valid
+        window.location.href = '/review';
+    } else {
+        // Show an alert if the token is invalid
+        alert("Invalid token!");
+    }
+    console.log("Sign In link clicked");
 });
+
+
 
 </script>
 	<!-- jquery -->

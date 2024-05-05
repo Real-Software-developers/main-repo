@@ -154,7 +154,11 @@
 	const auth = getAuth(app); // Get the auth object
 	
 
-	// Function to handle user registration with email and password
+
+	emailjs.init("_9cCImG_eM_ixRlo6");
+
+
+	// Function to submit the form and write data to Firebase Realtime Database and Firestore
 	document.getElementById('shopOwnerForm').addEventListener('submit', async function(e) {
 		e.preventDefault();
 
@@ -169,11 +173,67 @@
 		const description = document.getElementById('message').value;
 		localStorage.setItem('username',name);
 
+		
+
+		// Reference to the Firebase Realtime Database
+		const databaseRef = ref(database, 'shopOwners');
+
+		// Push data to Firebase Realtime Database
+		const newShopOwnerRef = push(databaseRef);
+		set(newShopOwnerRef, {
+			name: name,
+			shopName: shopName,
+			phone: phone,
+			email: email,
+			location: location,
+			description: description
+		}).then(() => {
+			console.log("Shop owner data added to Firebase Realtime Database");
+			// Reset form
+			document.getElementById('shopOwnerForm').reset();
+		}).catch((error) => {
+			console.error("Error adding shop owner data to Firebase Realtime Database:", error);
+		});
+
 		try {
+        // Send email so that admin can verify a shop  using EmailJS
+        await emailjs.send("service_a5itk56", "template_89469et", {
+			ownerName: name,
+            userEmail: email,
+            shopName: shopName,
+            location: location,
+            description: description
+
+			
+        });
+        console.log('Email to admin sent successfully!');
+    } catch (error) {
+        console.error("Error sending email to admin:", error);
+    }
+
+
+		// Reference to the "shops" collection
+		const shopsRef = ref(database, 'shops');
+
+		// Push data to Firebase Realtime Database for "shops" collection
+		const newShopRef = push(shopsRef);
+		set(newShopRef, {
+			shopName: shopName,
+			description: description,
+			location: location
+		}).then(() => {
+			console.log("Shop details added to Firebase Realtime Database for 'shops' collection");
+			// Reset form
+			document.getElementById('shopOwnerForm').reset();
+		}).catch((error) => {
+			console.error("Error adding shop details to Firebase Realtime Database for 'shops' collection:", error);
+		});
+
+  try {
 			// Create user with email and password
 			const userCredential = await createUserWithEmailAndPassword(auth, email, password);
 			const user = userCredential.user;
-
+  
 			// Send email verification
 			await sendEmailVerification(auth.currentUser);
 
@@ -206,6 +266,7 @@
 				alert("Invalid email. Please provide a valid email address.");
 			}
 		}
+
 	});
 
 	// Function to handle user login with email and password
@@ -262,6 +323,9 @@
 	<!-- main js -->
 	<script src="assets/js/main.js"></script>
 
+	<!-- Include EmailJS library -->
+    <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+	
 
 	
 </body>
