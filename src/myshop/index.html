@@ -460,7 +460,7 @@ function displayProducts() {
 	
     // Now you can query the database to get the shop name associated with this email
 // Assuming you have a Firebase reference for your database
-const staffRef = ref(database, 'Staff');
+const staffRef = ref(database, 'owners');
 get(staffRef).then((snapshot) => {
     if (snapshot.exists()) {
         snapshot.forEach((childSnapshot) => {
