@@ -79,7 +79,7 @@
 								</li>
 								<li>
 									<div class="header-icons">
-										<a class="shopping-cart" href="cart_checkout/index.html"><i class="fas fa-shopping-cart"></i></a>
+										<a class="shopping-cart" href="#"><i class="fas fa-shopping-cart"></i></a>
 										<a class="mobile-hide search-bar-icon" href="#"><i class="fas fa-search"></i></a>
 									</div>
 								</li>
@@ -211,12 +211,6 @@
 		</div>
 	</div>
 	<!-- end features list section -->
-	<div class="hero-btns" style="text-align: center;">
-		<a href="/products/" class="boxed-btn">Add Products</a>
-
-		<a href="/products/" class="boxed-btn">Remove Products</a>
-	
-	</div>
 	<!-- product section -->
 	<div class="product-section mt-150 mb-150">
 		<div class="container">
@@ -250,6 +244,7 @@
 		</div>
 	</div>
 	<!-- end product section -->
+	            <a href="/getstuff/cart_checkout/" class="cart-btn btn-lg" style="align-items: center;">Go to checkout!</a>
 
 	<!-- cart banner section -->
 	<section class="cart-banner pt-100 pb-100">
@@ -272,13 +267,7 @@
                 </div>
                 <!--Content Column-->
                 <div class="content-column col-lg-6">
-					<h3><span class="orange-text">Deal</span> of the month</h3>
-                    <h4>Hikan Strwaberry</h4>
-                    <div class="text">Quisquam minus maiores repudiandae nobis, minima saepe id, fugit ullam similique! Beatae, minima quisquam molestias facere ea. Perspiciatis unde omnis iste natus error sit voluptatem accusant</div>
-                    <!--Countdown Timer-->
-                    <div class="time-counter"><div class="time-countdown clearfix" data-countdown="2020/2/01"><div class="counter-column"><div class="inner"><span class="count">00</span>Days</div></div> <div class="counter-column"><div class="inner"><span class="count">00</span>Hours</div></div>  <div class="counter-column"><div class="inner"><span class="count">00</span>Mins</div></div>  <div class="counter-column"><div class="inner"><span class="count">00</span>Secs</div></div></div></div>
-                	<a href="cart_checkout/index.html" class="cart-btn mt-3"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
-                </div>
+					
             </div>
         </div>
     </section>
@@ -467,7 +456,7 @@
 				console.error("Error retrieving shop owners data:", error);
 			});
 		}*/
-	
+		let cartItems = [];
 // Function to retrieve and display products data
 function displayProducts(shopName) {
     const productsRef = ref(database, 'Products');
@@ -506,8 +495,8 @@ function displayProducts(shopName) {
 
                     const cartBtn = document.createElement('a');
                     cartBtn.classList.add('cart-btn');
-                    cartBtn.href = 'cart_checkout/';
-                    cartBtn.innerHTML = '<i class="fas fa-shopping-cart"></i> Remove Product.';
+                    //cartBtn.href = 'cart_checkout/';
+                    cartBtn.innerHTML = '<i class="fas fa-shopping-cart"></i> Add to cart';
 
                     // Append elements to single product item
                     singleProductItem.appendChild(productImage);
@@ -518,6 +507,34 @@ function displayProducts(shopName) {
                     // Append single product item to row container
                     shopItem.appendChild(singleProductItem);
                     rowContainer.appendChild(shopItem);
+					
+					cartBtn.addEventListener("click", function() {
+    // Create an empty array to store product data
+					
+
+					// Retrieve the product data from the current page
+					const productName = productData.productName; // Replace this with the actual way you retrieve product name
+					const productPrice = productData.productPrice; // Replace this with the actual way you retrieve product price
+					// Other product data...
+
+					// Add the product data to the array
+					cartItems.push({
+						productName: productName,
+						productPrice: productPrice
+						// Add other product data here as needed
+					});
+
+					// Convert the array to a JSON string
+					const cartItemsJSON = JSON.stringify(cartItems);
+
+					// Store the JSON string in local storage
+					localStorage.setItem("cartItems", cartItemsJSON);
+					
+					console.log(cartItems);
+					// Redirect the user to the cart checkout page
+					//window.location = "/src/getstuff/cart_checkout/";
+				});
+
                 }
             });
         } else {
