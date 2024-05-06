@@ -125,7 +125,7 @@
 							<div class="hero-text-tablecell">
 								<p class="subtitle">Fresh & Organic</p>
 								<p>Delicious Seasonal "food" at your local shop</p>
-								<h1>Welcome to {Shopname!}</h1>
+								<h1 id="shopName">Welcome to {Shopname!}</h1>
 								
 							</div>
 						</div>
@@ -450,90 +450,102 @@
 		const app = initializeApp(firebaseConfig);
 		const analytics = getAnalytics(app);
 		const database = getDatabase();
-	
-		// Function to retrieve and display shop owners data
-		/*function displayShopOwners() {
-			const shopOwnersRef = ref(database, 'shopOwners');
-			get(shopOwnersRef).then((snapshot) => {
-				if (snapshot.exists()) {
-					console.log("Shop Owners Data:");
-					snapshot.forEach((childSnapshot) => {
-						console.log(childSnapshot.key, childSnapshot.val());
-					});
-				} else {
-					console.log("No shop owners found.");
-				}
-			}).catch((error) => {
-				console.error("Error retrieving shop owners data:", error);
-			});
-		}*/
-	
+
+
+		
+
 		// Function to retrieve and display products data
 function displayProducts() {
-    const productsRef = ref(database, 'Products');
+	const userEmail = localStorage.getItem('userEmail');
+	
+    // Now you can query the database to get the shop name associated with this email
+// Assuming you have a Firebase reference for your database
+const staffRef = ref(database, 'Staff');
+get(staffRef).then((snapshot) => {
+    if (snapshot.exists()) {
+        snapshot.forEach((childSnapshot) => {
+            const userData = childSnapshot.val();
+            if (userData.email === userEmail) {
+                const shopName = userData.shopName;
+				document.getElementById('shopName').textContent = shopName;
+                // Now you have the shop name associated with the logged-in user's email
+                // Use this shop name to filter products
+                displayProductsForShop(shopName);
+            }
+        });
+    } else {
+        console.log("No staff data found.");
+    }
+}).catch((error) => {
+    console.error("Error retrieving staff data:", error);
+});
+
+}
+function   displayProductsForShop(shopName){
+// Set the shop name in the hero text
+
+	const productsRef = ref(database, 'Products');
     get(productsRef).then((snapshot) => {
         if (snapshot.exists()) {
-            console.log("Products Data:");
-			
-			
-           
-              
             // Get the container element for shops
             const rowContainer = document.getElementById('some.');
             // Clear previous content
             rowContainer.innerHTML = '';
 
+            // for all products in the database
             snapshot.forEach((childSnapshot) => {
                 const productData = childSnapshot.val();
-                console.log(productData);
-				// get shop name element for shop
-				const Name = productData.shopName;
-			// console.log(Name);
-            // const shopNameElement = document.getElementById('shopNamePlaceholder');
-            // shopNameElement.textContent = Name;
-                // Create a card for a single product
-                const shopItem = document.createElement('div');
-                shopItem.classList.add('col-lg-4', 'col-md-6', 'text-center');
 
-                const singleProductItem = document.createElement('div');
-                singleProductItem.classList.add('single-product-item');
-                 // an image on a card
-                const productImage = document.createElement('div');
-                productImage.classList.add('product-image');
-                productImage.innerHTML = '<a href="#"><img src="assets/img/products/product-img-1.jpg" alt=""></a>';
-                   // name of product
-                const pName = document.createElement('h3');
-                pName.textContent = productData.productName;      // first bolded text
-                   // product description 
-                const productPrice = document.createElement('p');
-                productPrice.classList.add('product-price');
-                productPrice.innerHTML = `<span>${productData.description}</span> ${productData.productPrice}`;
+                if (productData.shopName === shopName) {
+                    // Create a card for a single product that has the same shopname
+                    const shopItem = document.createElement('div');
+                    shopItem.classList.add('col-lg-4', 'col-md-6', 'text-center');
 
-                const cartBtn = document.createElement('a');
-                cartBtn.classList.add('cart-btn');
-                cartBtn.href = 'cart_checkout/';
-                cartBtn.innerHTML = '<i class="fas fa-shopping-cart"></i> Remove Product.';
+                    const singleProductItem = document.createElement('div');
+                    singleProductItem.classList.add('single-product-item');
 
-                // Append elements to single product item
-                singleProductItem.appendChild(productImage);
-                singleProductItem.appendChild(pName);
-                singleProductItem.appendChild(productPrice);
-                singleProductItem.appendChild(cartBtn);
+                    // an image on a card
+                    const productImage = document.createElement('div');
+                    productImage.classList.add('product-image');
+                    productImage.innerHTML = '<a href="#"><img src="assets/img/products/product-img-1.jpg" alt=""></a>';
 
-                // Append single product item to row container
-                shopItem.appendChild(singleProductItem);
-                rowContainer.appendChild(shopItem);
+                    // name of product
+                    const pName = document.createElement('h3');
+                    pName.textContent = productData.productName; // first bolded text
+
+                    // product description
+                    const productPrice = document.createElement('p');
+                    productPrice.classList.add('product-price');
+                    productPrice.innerHTML = `<span>${productData.description}</span> ${productData.productPrice}`;
+
+                    const cartBtn = document.createElement('a');
+                    cartBtn.classList.add('cart-btn');
+                    cartBtn.href = 'cart_checkout/';
+                    cartBtn.innerHTML = '<i class="fas fa-shopping-cart"></i> Remove Product.';
+
+                    // Append elements to single product item
+                    singleProductItem.appendChild(productImage);
+                    singleProductItem.appendChild(pName);
+                    singleProductItem.appendChild(productPrice);
+                    singleProductItem.appendChild(cartBtn);
+
+                    // Append single product item to row container
+                    shopItem.appendChild(singleProductItem);
+                    rowContainer.appendChild(shopItem);
+                }
             });
-        } else {
+			
+       }else {
             console.log("No products found.");
         }
     }).catch((error) => {
         console.error("Error retrieving products data:", error);
     });
+
 }
 
 		// Call function to display products data
-		//displayShopOwners();
+		 
 		displayProducts();
 	</script>
 	
