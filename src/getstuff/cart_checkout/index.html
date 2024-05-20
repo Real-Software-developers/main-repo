@@ -132,7 +132,7 @@
 						</table>
 						<div class="cart-buttons">
 							<a href="#" class="boxed-btn">Get Back Shopping!</a>
-							<a href="#" class="boxed-btn black">Place Order!</a>
+							<a href="#" class="boxed-btn black" id="place-order">Place Order!</a>
 						</div>
 					</div>
 
@@ -302,12 +302,71 @@
     totalPriceCell.textContent = ` R ${totalPrice.toFixed(2)}`; // Assuming 2 decimal places for currency
 	grandtotal.innerHTML=`R ${(30+parseInt(totalPrice.toFixed(2))).toFixed(2)}`;
 });
-
-
-
-
-		
-
 	</script>
+
+<script type="module">
+    // Import the functions you need from the SDKs you need
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-app.js";
+    import { getDatabase, ref, set, push } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-database.js";
+
+    // Your web app's Firebase configuration
+    const firebaseConfig = {
+        apiKey: "AIzaSyCDvwIj5sxqJE-yIrkQhBtPLAWDlKxY-zU",
+        authDomain: "entiresystem-7ea4f.firebaseapp.com",
+        databaseURL: "https://entiresystem-7ea4f-default-rtdb.asia-southeast1.firebasedatabase.app",
+        projectId: "entiresystem-7ea4f",
+        storageBucket: "entiresystem-7ea4f.appspot.com",
+        messagingSenderId: "25619596774",
+        appId: "1:25619596774:web:e296b99271610195690227",
+        measurementId: "G-LXVGY3MW22"
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const database = getDatabase(app);
+
+    // Function to place order
+    function placeOrder() {
+        // Retrieve cart items and user details from local storage
+        const username = localStorage.getItem("username");
+        const userEmail = localStorage.getItem("userEmail");
+        const shopName = localStorage.getItem("Shopname");
+        const cartItemsJSON = localStorage.getItem("cartItems");
+        const cartItems = JSON.parse(cartItemsJSON);
+
+        if (username && userEmail && Array.isArray(cartItems)) {
+            // Create a new order object
+            const newOrder = {
+                username: username,
+                email: userEmail,
+                shopName: shopName,
+                items: cartItems,
+                timestamp: Date.now()
+            };
+
+            // Get a reference to the orders collection
+            const ordersRef = ref(database, 'orders');
+
+            // Push the new order to the orders collection
+            const newOrderRef = push(ordersRef);
+            set(newOrderRef, newOrder)
+                .then(() => {
+                    console.log("Order placed successfully!");
+                    // Optionally clear the cart and local storage
+                    localStorage.removeItem("cartItems");
+                    alert("Order placed successfully!");
+                })
+                .catch((error) => {
+                    console.error("Error placing order:", error);
+                });
+        } else {
+            console.error("Invalid order data");
+        }
+    }
+
+    // Add event listener to the "Place Order" button
+    document.getElementById("place-order").addEventListener("click", placeOrder);
+</script>
+
 </body>
 </html>
