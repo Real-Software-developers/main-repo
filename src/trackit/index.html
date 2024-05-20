@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="Responsive Bootstrap4 Shop Template, Created by Imran Hossain from https://imransdesign.com/">
+
+	<!-- title -->
+	<title>Approve Orders!</title>
+
+	<!-- favicon -->
+	<link rel="shortcut icon" type="image/png" href="assets/img/favicon.png">
+	<!-- google font -->
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Poppins:400,700&display=swap" rel="stylesheet">
+	<!-- fontawesome -->
+	<link rel="stylesheet" href="assets/css/all.min.css">
+	<!-- bootstrap -->
+	<link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+	<!-- owl carousel -->
+	<link rel="stylesheet" href="assets/css/owl.carousel.css">
+	<!-- magnific popup -->
+	<link rel="stylesheet" href="assets/css/magnific-popup.css">
+	<!-- animate css -->
+	<link rel="stylesheet" href="assets/css/animate.css">
+	<!-- mean menu css -->
+	<link rel="stylesheet" href="assets/css/meanmenu.min.css">
+	<!-- main style -->
+	<link rel="stylesheet" href="assets/css/main.css">
+	<!-- responsive -->
+	<link rel="stylesheet" href="assets/css/responsive.css">
+
+</head>
+<body>
+	
+	<!--PreLoader-->
+    <div class="loader">
+        <div class="loader-inner">
+            <div class="circle"></div>
+        </div>
+    </div>
+    <!--PreLoader Ends-->
+	
+	
+
+		<!-- search area -->
+		<div class="search-area">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-12">
+						<span class="close-btn"><i class="fas fa-window-close"></i></span>
+						<div class="search-bar">
+							<div class="search-bar-tablecell">
+								<h3>Search For:</h3>
+								<input type="text" placeholder="Keywords">
+								<button type="submit">Search <i class="fas fa-search"></i></button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- end search arewa -->
+		<!-- breadcrumb-section -->
+		<div class="breadcrumb-section breadcrumb-bg">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-8 offset-lg-2 text-center">
+						<div class="breadcrumb-text">
+							<p>Hope you enjoy!</p>
+							<h1>Thank you for choosing us!</h1>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- end breadcrumb section -->
+		<!-- error section -->
+		
+		<!-- product section -->
+	<div class="product-section mt-150 mb-150" id="aproved_div">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-8 offset-lg-2 text-center">
+					<div class="section-title">	
+						<h3><span class="orange-text">APPROVED!</span> orders</h3>
+						<p><b>list of aproved orders!, you can get these in store today</p>
+					</div>
+				</div>
+			</div>
+              
+			<div class="row" id="approved_order.">
+				
+				
+					<div class="col-lg-4 col-md-6 text-center">
+						<div class="single-product-item">
+							<div class="product-image">
+								<a href="#"><img src="assets/img/products/product-img-1.jpg" alt=""></a>
+							</div>
+							<h3 id ="description">description </h3>
+							<p class="product-price" id="shopName"><span id="location">location</span> NameOfShop </p>
+							<a href="#" class="cart-btn"><i class="fas fa-shopping-cart"></i> Visit Shop.</a>
+						</div>
+					</div>			
+			</div>	
+		</div>
+	</div>
+	<!-- end product section -->
+    <div class="product-section mt-150 mb-150" id="outofstockdiv">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-8 offset-lg-2 text-center">
+					<div class="section-title">	
+						<h3><span class="orange-text">Oops we're</span> out of stock for these</h3>
+						<p><b>we'll contact you once we have ordered!</p>
+					</div>
+				</div>
+			</div>
+              
+			<div class="row" id=outofstockorders.">
+				
+				
+					<div class="col-lg-4 col-md-6 text-center">
+						<div class="single-product-item">
+							<div class="product-image">
+								<a href="#"><img src="assets/img/products/product-img-1.jpg" alt=""></a>
+							</div>
+							<h3 id ="description">description </h3>
+							<p class="product-price" id="shopName"><span id="location">location</span> NameOfShop </p>
+							<a href="#" class="cart-btn"><i class="fas fa-shopping-cart"></i> Visit Shop.</a>
+						</div>
+					</div>			
+			</div>	
+		</div>
+	</div>
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-app.js";
+        import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-database.js";
+    
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyCDvwIj5sxqJE-yIrkQhBtPLAWDlKxY-zU",
+            authDomain: "entiresystem-7ea4f.firebaseapp.com",
+            databaseURL: "https://entiresystem-7ea4f-default-rtdb.asia-southeast1.firebasedatabase.app",
+            projectId: "entiresystem-7ea4f",
+            storageBucket: "entiresystem-7ea4f.appspot.com",
+            messagingSenderId: "25619596774",
+            appId: "1:25619596774:web:e296b99271610195690227",
+            measurementId: "G-LXVGY3MW22"
+        };
+    
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const database = getDatabase(app);
+    
+        // Function to populate the approved orders section
+        function populateApprovedOrders() {
+            const approvedOrdersRef = ref(database, 'approved_orders');
+            const approvedOrdersContainer = document.getElementById('approved_order.');
+    
+            onValue(approvedOrdersRef, (snapshot) => {
+                const approvedOrders = snapshot.val();
+    
+                // Clear previous content
+                approvedOrdersContainer.innerHTML = '';
+    
+                for (const itemId in approvedOrders) {
+                    if (approvedOrders.hasOwnProperty(itemId)) {
+                        const item = approvedOrders[itemId];
+    
+                        // Create the product UI
+                        const productCol = document.createElement("div");
+                        productCol.classList.add("col-lg-4", "col-md-6", "text-center");
+    
+                        const productItem = document.createElement("div");
+                        productItem.classList.add("single-product-item");
+    
+                        const productImage = document.createElement("div");
+                        productImage.classList.add("product-image");
+                        productImage.innerHTML = '<a href="#"><img src="assets/img/products/product-img-1.jpg" alt=""></a>';
+    
+                        const productDescription = document.createElement("h3");
+                        productDescription.id = "description";
+                        productDescription.textContent = item.productName;
+    
+                        const productPrice = document.createElement("p");
+                        productPrice.classList.add("product-price");
+                        productPrice.id = "shopName";
+                        productPrice.innerHTML = `<span id="location">${item.shopName}</span> ${item.productPrice}`;
+    
+                        const cartBtn = document.createElement("a");
+                        cartBtn.href = "#";
+                        cartBtn.classList.add("cart-btn");
+                        cartBtn.innerHTML = '<i class="fas fa-shopping-cart"></i> Visit Shop.';
+    
+                        // Append elements to the product item
+                        productItem.appendChild(productImage);
+                        productItem.appendChild(productDescription);
+                        productItem.appendChild(productPrice);
+                      //  productItem.appendChild(cartBtn);
+    
+                        // Append the product item to the product column
+                        productCol.appendChild(productItem);
+    
+                        // Append the product column to the approved orders container
+                        approvedOrdersContainer.appendChild(productCol);
+                    }
+                }
+            });
+        }
+    
+        // Function to populate the out of stock orders section
+        function populateOutOfStockOrders() {
+            const outOfStockOrdersRef = ref(database, 'out_of_stock');
+            const outOfStockOrdersContainer = document.getElementById('outofstockorders.');
+    
+            onValue(outOfStockOrdersRef, (snapshot) => {
+                const outOfStockOrders = snapshot.val();
+    
+                // Clear previous content
+                outOfStockOrdersContainer.innerHTML = '';
+    
+                for (const itemId in outOfStockOrders) {
+                    if (outOfStockOrders.hasOwnProperty(itemId)) {
+                        const item = outOfStockOrders[itemId];
+    
+                        // Create the product UI
+                        const productCol = document.createElement("div");
+                        productCol.classList.add("col-lg-4", "col-md-6", "text-center");
+    
+                        const productItem = document.createElement("div");
+                        productItem.classList.add("single-product-item");
+    
+                        const productImage = document.createElement("div");
+                        productImage.classList.add("product-image");
+                        productImage.innerHTML = '<a href="#"><img src="assets/img/products/product-img-1.jpg" alt=""></a>';
+    
+                        const productDescription = document.createElement("h3");
+                        productDescription.id = "description";
+                        productDescription.textContent = item.productName;
+    
+                        const productPrice = document.createElement("p");
+                        productPrice.classList.add("product-price");
+                        productPrice.id = "shopName";
+                        productPrice.innerHTML = `<span id="location">${item.shopName}</span> ${item.productPrice}`;
+    
+                        const cartBtn = document.createElement("a");
+                        cartBtn.href = "#";
+                        cartBtn.classList.add("cart-btn");
+                        cartBtn.innerHTML = '<i class="fas fa-shopping-cart"></i> Visit Shop.';
+    
+                        // Append elements to the product item
+                        productItem.appendChild(productImage);
+                        productItem.appendChild(productDescription);
+                        productItem.appendChild(productPrice);
+                        //productItem.appendChild(cartBtn);
+    
+                        // Append the product item to the product column
+                        productCol.appendChild(productItem);
+    
+                        // Append the product column to the out of stock orders container
+                        outOfStockOrdersContainer.appendChild(productCol);
+                    }
+                }
+            });
+        }
+    
+        // Call the functions to populate the sections on DOMContentLoaded
+        document.addEventListener("DOMContentLoaded", () => {
+            populateApprovedOrders();
+            populateOutOfStockOrders();
+        });
+    </script>
+    
+	
+	<script src="assets/js/jquery-1.11.3.min.js"></script>
+	<!-- bootstrap -->
+	<script src="assets/bootstrap/js/bootstrap.min.js"></script>
+	<!-- count down -->
+	<script src="assets/js/jquery.countdown.js"></script>
+	<!-- isotope -->
+	<script src="assets/js/jquery.isotope-3.0.6.min.js"></script>
+	<!-- waypoints -->
+	<script src="assets/js/waypoints.js"></script>
+	<!-- owl carousel -->
+	<script src="assets/js/owl.carousel.min.js"></script>
+	<!-- magnific popup -->
+	<script src="assets/js/jquery.magnific-popup.min.js"></script>
+	<!-- mean menu -->
+	<script src="assets/js/jquery.meanmenu.min.js"></script>
+	<!-- sticker js -->
+	<script src="assets/js/sticker.js"></script>
+	<!-- main js -->
+	<script src="assets/js/main.js"></script>
+	
+	</body>
+</html>
