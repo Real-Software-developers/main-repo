@@ -121,14 +121,10 @@
 		</div>
 	</div>
 	<!-- end product section -->
-	
-
-
-
 	<script type="module">
 		// Import the functions you need from the SDKs you need
 		import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-app.js";
-		import { getDatabase, ref, onValue, set, remove, push } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-database.js";
+		import { getDatabase, ref, onValue, set, remove, push, update } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-database.js";
 	
 		// Your web app's Firebase configuration
 		const firebaseConfig = {
@@ -158,15 +154,15 @@
 				});
 		}
 	
-		// Function to delete an order from the original orders collection
-		function deleteOrder(orderId) {
-			const orderRef = ref(database, `orders/${orderId}`);
-			remove(orderRef)
+		// Function to delete an item from an order
+		function deleteItemFromOrder(orderId, itemId) {
+			const itemRef = ref(database, `orders/${orderId}/items/${itemId}`);
+			remove(itemRef)
 				.then(() => {
-					console.log(`Order ${orderId} deleted from orders`);
+					console.log(`Item ${itemId} deleted from order ${orderId}`);
 				})
 				.catch((error) => {
-					console.error(`Error deleting order ${orderId}:`, error);
+					console.error(`Error deleting item ${itemId} from order ${orderId}:`, error);
 				});
 		}
 	
@@ -188,60 +184,64 @@
 					if (orders.hasOwnProperty(orderId)) {
 						const order = orders[orderId];
 	
-						order.items.forEach(item => {
-							// Create the product UI
-							const productCol = document.createElement("div");
-							productCol.classList.add("col-lg-4", "col-md-6", "text-center");
+						for (const itemId in order.items) {
+							if (order.items.hasOwnProperty(itemId)) {
+								const item = order.items[itemId];
 	
-							const productItem = document.createElement("div");
-							productItem.classList.add("single-product-item");
+								// Create the product UI
+								const productCol = document.createElement("div");
+								productCol.classList.add("col-lg-4", "col-md-6", "text-center");
 	
-							const productImage = document.createElement("div");
-							productImage.classList.add("product-image");
-							productImage.innerHTML = '<a href="#"><img src="assets/img/products/product-img-1.jpg" alt=""></a>';
+								const productItem = document.createElement("div");
+								productItem.classList.add("single-product-item");
 	
-							const productDescription = document.createElement("h3");
-							productDescription.id = "description";
-							productDescription.textContent = item.productName;
+								const productImage = document.createElement("div");
+								productImage.classList.add("product-image");
+								productImage.innerHTML = '<a href="#"><img src="assets/img/products/product-img-1.jpg" alt=""></a>';
 	
-							const productPrice = document.createElement("p");
-							productPrice.classList.add("product-price");
-							productPrice.id = "shopName";
-							productPrice.innerHTML = `<span id="location">${order.shopName}</span> ${item.productPrice}`;
+								const productDescription = document.createElement("h3");
+								productDescription.id = "description";
+								productDescription.textContent = item.productName;
 	
-							const cartBtn = document.createElement("a");
-							cartBtn.href = "#";
-							cartBtn.classList.add("cart-btn");
-							cartBtn.innerHTML = '<i class="fas fa-check"></i> Fulfill it?.';
-							cartBtn.addEventListener("click", (event) => {
-								event.preventDefault();
-								moveItem(item, 'approved_orders');
-								deleteOrder(orderId);
-							});
+								const productPrice = document.createElement("p");
+								productPrice.classList.add("product-price");
+								productPrice.id = "shopName";
+								productPrice.innerHTML = `<span id="location">${order.shopName}</span> ${item.productPrice}`;
 	
-							const outBtn = document.createElement("a");
-							outBtn.href = "#";
-							outBtn.classList.add("cart-btn");
-							outBtn.innerHTML = '<i class="fas fa-times"></i> Out of stock.';
-							outBtn.addEventListener("click", (event) => {
-								event.preventDefault();
-								moveItem(item, 'out_of_stock');
-								deleteOrder(orderId);
-							});
+								const cartBtn = document.createElement("a");
+								cartBtn.href = "#";
+								cartBtn.classList.add("cart-btn");
+								cartBtn.innerHTML = '<i class="fas fa-check"></i> Fulfill it?.';
+								cartBtn.addEventListener("click", (event) => {
+									event.preventDefault();
+									moveItem(item, 'approved_orders');
+									deleteItemFromOrder(orderId, itemId);
+								});
 	
-							// Append elements to the product item
-							productItem.appendChild(productImage);
-							productItem.appendChild(productDescription);
-							productItem.appendChild(productPrice);
-							productItem.appendChild(cartBtn);
-							productItem.appendChild(outBtn);
+								const outBtn = document.createElement("a");
+								outBtn.href = "#";
+								outBtn.classList.add("cart-btn");
+								outBtn.innerHTML = '<i class="fas fa-times"></i> Out of stock.';
+								outBtn.addEventListener("click", (event) => {
+									event.preventDefault();
+									moveItem(item, 'out_of_stock');
+									deleteItemFromOrder(orderId, itemId);
+								});
 	
-							// Append the product item to the product column
-							productCol.appendChild(productItem);
+								// Append elements to the product item
+								productItem.appendChild(productImage);
+								productItem.appendChild(productDescription);
+								productItem.appendChild(productPrice);
+								productItem.appendChild(cartBtn);
+								productItem.appendChild(outBtn);
 	
-							// Append the product column to the orders container
-							ordersContainer.appendChild(productCol);
-						});
+								// Append the product item to the product column
+								productCol.appendChild(productItem);
+	
+								// Append the product column to the orders container
+								ordersContainer.appendChild(productCol);
+							}
+						}
 					}
 				}
 			});
@@ -251,14 +251,6 @@
 		document.addEventListener("DOMContentLoaded", populateOrders);
 	</script>
 	
-	
-
-
-
-
-
-
-
 	<script src="assets/js/jquery-1.11.3.min.js"></script>
 	<!-- bootstrap -->
 	<script src="assets/bootstrap/js/bootstrap.min.js"></script>
