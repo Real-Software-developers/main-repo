@@ -484,14 +484,28 @@ function displayProducts(shopName) {
                      // an image on a card
                     const productImage = document.createElement('div');
                     productImage.classList.add('product-image');
-                    productImage.innerHTML = '<a href="#"><img src="assets/img/products/product-img-1.jpg" alt=""></a>';
+					productImage.innerHTML = `<a href="#"><img src="${productData.imageUrl}" alt=""></a>`;
+					function truncateDescription(description, maxLength = 35) {
+    // Split the description into lines
+    let lines = description.split('\n');
+
+    // Take the first line
+    let firstLine = lines[0];
+
+    // If the first line is longer than the maxLength, truncate it and add ellipses
+    if (firstLine.length > maxLength) {
+        firstLine = firstLine.substring(0, maxLength) + '...';
+    }
+
+    return firstLine;
+}
                        // name of product
                     const pName = document.createElement('h3');
                     pName.textContent = productData.productName;      // first bolded text
                        // product description 
                     const productPrice = document.createElement('p');
                     productPrice.classList.add('product-price');
-                    productPrice.innerHTML = `<span>${productData.description}</span> ${productData.productPrice}`;
+                    productPrice.innerHTML = `<span>${truncateDescription(productData.description)}</span> ${productData.productPrice}`;
 
                     const cartBtn = document.createElement('a');
                     cartBtn.classList.add('cart-btn');
