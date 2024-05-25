@@ -71,29 +71,50 @@
 						<h2>Upload your products to sell in minutes!</h2>
 						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur, ratione! Laboriosam est, assumenda. Perferendis, quo alias quaerat aliquid. Corporis ipsum minus voluptate? Dolore, esse natus!</p>
 					</div>
-				 	<div id="form_status"></div>
+					<div id="form_status"></div>
 					<div class="contact-form">
 						<form type="POST" id="ProductsForm">
-							<p>
-                                <input type="text" placeholder="ShopName" name="Shopname" id="shopname">
-							</p>
-						<!--	<p>
-								<input type="tel" placeholder="Phone" name="phone" id="phone">
-								<input type="email" placeholder="Email" name="email" id="email">
-							</p>--->
-
-                            <p>
-                                <input type="text" placeholder="ProductName" name="name" id="productname">
-                            </p>
-
-                            <p>
-                                <input type="text" placeholder="Price" name="price" id="productprice">
-                            </p>
-							<p><textarea name="message" id="message" cols="30" rows="10" placeholder=" brief product description"></textarea></p>
-							
-							<p><input type="submit" value="Submit"></p>
+							<div class="mb-3">
+								<label for="shopname" class="form-label">Shop Name</label>
+								<input type="text" class="form-control" id="shopname" name="Shopname" placeholder="Enter Shop Name" required>
+							</div>
+							<div class="mb-3">
+								<label for="productname" class="form-label">Product Name</label>
+								<input type="text" class="form-control" id="productname" name="name" placeholder="Enter Product Name" required>
+							</div>
+							<div class="row mb-3">
+								<div class="col-md-6">
+									<label for="productprice" class="form-label">Price</label>
+									<input type="number" class="form-control" id="productprice" name="price" placeholder="Enter Price" required>
+								</div>
+								<div class="col-md-6">
+									<label for="category" class="form-label">Category</label>
+									<select class="form-select" id="category" name="category" required>
+										<option selected disabled>Select Category</option>
+										<optgroup label="Clothes">
+											<option value="sneakers">Sneakers</option>
+											<option value="pants">Pants</option>
+											<option value="hoodies">Hoodies</option>
+										</optgroup>
+										<optgroup label="Food">
+											<option value="main-meal">Main Meal</option>
+											<option value="fastfood">Fast Food</option>
+										</optgroup>
+									</select>
+								</div>
+							</div>
+							<div class="mb-3">
+								<label for="message" class="form-label">Brief Product Description</label>
+								<textarea class="form-control" id="message" name="message" rows="3" placeholder="Enter Brief Product Description" required></textarea>
+							</div>
+							<div class="mb-3">
+								<label for="productimage" class="form-label">Product Image</label>
+								<input class="form-control" type="file" id="productimage" name="productimage" accept="image/*" required>
+							</div>
+							<button type="submit" class="btn btn-primary">Submit</button>
 						</form>
 					</div>
+					
 				</div>
 				<div class="col-lg-4">
 					<div class="contact-form-wrap">
