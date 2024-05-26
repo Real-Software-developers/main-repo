@@ -11,7 +11,7 @@
 	<title>E-Spaza</title>
 
 	<!-- favicon -->
-	<link rel="shortcut icon" type="image/png" href="assets/img/favicon.png">
+	<link rel="shortcut icon" type="image/png" href="assets/img/master.jpg">
 	<!-- google font -->
 	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css?family=Poppins:400,700&display=swap" rel="stylesheet">
@@ -45,6 +45,7 @@
     <!--PreLoader Ends-->
 	
 	<!-- header -->
+	
 	<div class="top-header-area" id="sticker">
 		<div class="container">
 			<div class="row">
@@ -53,7 +54,7 @@
 						<!-- logo -->
 						<div class="site-logo">
 							<a href="index.html">
-								<img src="logoipsum-248.svg" alt="">
+								<img src="assets/img/master.jpg" alt="logo for site" width="50px" height="50px" style="border-radius: 15px;">
 							</a>
 						</div>
 						<!-- logo -->
@@ -61,13 +62,36 @@
 						<!-- menu start -->
 						<nav class="main-menu">
 							<ul>
-								
-								<li><div class="hero-btns">
-									<a href="getstarted/" class="boxed-btn">Get-Started!</a>
-
-                                   
+								<li class="current-list-item"><a href="/">Home</a>
 									
-								</div></li>
+								</li>
+								<li><a href="/window_shop/">Window shop</a></li>
+
+                                
+								
+								<li><a href="/trackit/">TrackYourOrder</a>
+									
+								</li>
+								<li><a href="/contact/">Contact</a></li>
+
+
+								<li><a href="">SignIn</a>
+									<ul class="sub-menu">
+										<li><a href="/shopper/">Shopper?</a></li>
+										<li><a href="/shopowner/">ShopOwner</a></li>
+										<li><a href="/admin/">Admin</a></li>
+										<li><a href="#">Meet the team</a></li>
+									</ul>
+								</li>
+                                
+
+
+								<li>
+									<div class="header-icons">
+										<a class="shopping-cart" href="cart.html"><i class="fas fa-shopping-cart"></i></a>
+										<a class="mobile-hide search-bar-icon" href="#"><i class="fas fa-search"></i></a>
+									</div>
+								</li>
 							</ul>
 						</nav>
 						<a class="mobile-show search-bar-icon" href="#"><i class="fas fa-search"></i></a>
@@ -251,7 +275,7 @@
 				<div class="col-lg-6 col-md-12">
 					
 					<div class="abt-bg">
-						<a href="https://www.youtube.com/watch?v=DBLlFWYcIGQ" class="video-play-btn popup-youtube"><i class="fas fa-play"></i></a>
+						<a href="https://www.youtube.com/watch?v=oJm7MK97UP0" class="video-play-btn popup-youtube"><i class="fas fa-play"></i></a>
 					</div>
 				</div>
 				<div class="col-lg-6 col-md-12">
@@ -429,7 +453,7 @@
 
 			const productImage = document.createElement('div');
 			productImage.classList.add('product-image');
-			productImage.innerHTML = '<a href="#"><img src="/shop.jpeg" alt=""></a>';
+			productImage.innerHTML = '<a href="#"><img src="sh.jpg" alt=""></a>';
 
 			const shopDescription = document.createElement('h3');
 			shopDescription.textContent = shopData.description;
