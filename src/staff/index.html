@@ -1,270 +1,333 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta name="description" content="Responsive Bootstrap4 Shop Template, Created by Imran Hossain from https://imransdesign.com/">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Responsive Bootstrap4 Shop Template, Created by Imran Hossain from https://imransdesign.com/"
+    />
 
-	<!-- title -->
-	<title>Contact</title>
+    <!-- title -->
+    <title>Contact</title>
 
-	<!-- favicon -->
-	<link rel="shortcut icon" type="image/png" href="assets/img/favicon.png">
-	<!-- google font -->
-	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
-	<link href="https://fonts.googleapis.com/css?family=Poppins:400,700&display=swap" rel="stylesheet">
-	<!-- fontawesome -->
-	<link rel="stylesheet" href="assets/css/all.min.css">
-	<!-- bootstrap -->
-	<link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
-	<!-- owl carousel -->
-	<link rel="stylesheet" href="assets/css/owl.carousel.css">
-	<!-- magnific popup -->
-	<link rel="stylesheet" href="assets/css/magnific-popup.css">
-	<!-- animate css -->
-	<link rel="stylesheet" href="assets/css/animate.css">
-	<!-- mean menu css -->
-	<link rel="stylesheet" href="assets/css/meanmenu.min.css">
-	<!-- main style -->
-	<link rel="stylesheet" href="assets/css/main.css">
-	<!-- responsive -->
-	<link rel="stylesheet" href="assets/css/responsive.css">
-
-</head>
-<body>
-	
-	<!--PreLoader-->
+    <!-- favicon -->
+    <link rel="shortcut icon" type="image/png" href="assets/img/favicon.png" />
+    <!-- google font -->
+    <link
+      href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Poppins:400,700&display=swap"
+      rel="stylesheet"
+    />
+    <!-- fontawesome -->
+    <link rel="stylesheet" href="assets/css/all.min.css" />
+    <!-- bootstrap -->
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css" />
+    <!-- owl carousel -->
+    <link rel="stylesheet" href="assets/css/owl.carousel.css" />
+    <!-- magnific popup -->
+    <link rel="stylesheet" href="assets/css/magnific-popup.css" />
+    <!-- animate css -->
+    <link rel="stylesheet" href="assets/css/animate.css" />
+    <!-- mean menu css -->
+    <link rel="stylesheet" href="assets/css/meanmenu.min.css" />
+    <!-- main style -->
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <!-- responsive -->
+    <link rel="stylesheet" href="assets/css/responsive.css" />
+  </head>
+  <body>
+    <!--PreLoader-->
     <div class="loader">
-        <div class="loader-inner">
-            <div class="circle"></div>
-        </div>
+      <div class="loader-inner">
+        <div class="circle"></div>
+      </div>
     </div>
     <!--PreLoader Ends-->
-	
 
+    <!-- breadcrumb-section -->
+    <div class="breadcrumb-section breadcrumb-bg">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 offset-lg-2 text-center">
+            <div class="breadcrumb-text">
+              <p>Shop like never before.</p>
+              <h1>At your fingertips</h1>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- end breadcrumb section -->
+    <!-- product section -->
 
-	
-	<!-- breadcrumb-section -->
-	<div class="breadcrumb-section breadcrumb-bg">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-8 offset-lg-2 text-center">
-					<div class="breadcrumb-text">
-						<p>Shop like never before.</p>
-						<h1>At your fingertips</h1>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- end breadcrumb section -->
-<!-- product section -->
+    <!-- contact form -->
+    <div class="contact-from-section mt-150 mb-150">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 mb-5 mb-lg-0">
+            <div class="form-title">
+              <h2>Register or login as staff</h2>
+              <p>
+                Step into the Future of Shop Management: Register and Log In as
+                a Staff Member on Our E-Spaza Platform Today! With real-time
+                updates and convenient online access, our platform ensures
+                seamless shop operations from anywhere. Join us now and
+                experience the ease of modern convenience at your fingertips!
+              </p>
+            </div>
+            <div id="form_status"></div>
+            <div class="contact-form">
+              <form type="POST" id="Register">
+                <p>
+                  <input type="text" placeholder="Name" name="name" id="name" />
+                  <input
+                    type="email"
+                    placeholder="Email"
+                    name="email"
+                    id="email"
+                  />
+                </p>
+                <p>
+                  <input
+                    type="text"
+                    placeholder="phone"
+                    name="phone"
+                    id="phone"
+                  />
+                  <input
+                    type="text"
+                    placeholder="shopName"
+                    name="shopName"
+                    id="shopName"
+                  />
+                </p>
+                <p>
+                  <input
+                    type="password"
+                    placeholder="Password"
+                    name="password"
+                    id="password"
+                  />
+                </p>
+                <p>
+                  <textarea
+                    name="message"
+                    id="message"
+                    cols="30"
+                    rows="10"
+                    placeholder="For better recommendation tell us what you like!"
+                  ></textarea>
+                </p>
+                <p><input type="submit" value="Register" /></p>
+              </form>
+            </div>
 
+            <div class="contact-form">
+              <form type="POST" id="Login">
+                <p>
+                  <input
+                    type="email"
+                    placeholder="Email"
+                    name="email"
+                    id="login-email"
+                  />
+                  <input
+                    type="password"
+                    placeholder="Password"
+                    name="password"
+                    id="login-password"
+                  />
+                </p>
+                <p><input type="submit" value="Login" /></p>
+              </form>
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <div class="contact-form-wrap">
+              <div class="contact-form-box">
+                <h4><i class="fas fa-address-book"></i> Keep In touch</h4>
+                <p>
+                  Phone: +27 71 221 8169 <br />
+                  Email: aspaza811@gmail.com
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- end contact form -->
 
-        <!-- contact form -->
-	<div class="contact-from-section mt-150 mb-150">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-8 mb-5 mb-lg-0">
-					<div class="form-title">
-						<h2>Register or login as staff</h2>
-						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur, ratione! Laboriosam est, assumenda. Perferendis, quo alias quaerat aliquid. Corporis ipsum minus voluptate? Dolore, esse natus!</p>
-					</div>
-				 	<div id="form_status"></div>
-					 <div class="contact-form">
-						<form type="POST" id="Register">
-							<p>
-								<input type="text" placeholder="Name" name="name" id="name">
-								<input type="email" placeholder="Email" name="email" id="email">
-							</p>
-							<p>
-								<input type="text" placeholder="phone" name="phone" id="phone">
-								<input type="text" placeholder="shopName" name="shopName" id="shopName">
+    <
 
-							</p>
-							<p>
-								<input type="password" placeholder="Password" name="password" id="password">
-							</p>
-							<p><textarea name="message" id="message" cols="30" rows="10" placeholder="For better recommendation tell us what you like!"></textarea></p>
-							<p><input type="submit" value="Register"></p>
-						</form>
-					</div>
-					
-					<div class="contact-form">
-						<form type="POST" id="Login">
-							<p>
-								<input type="email" placeholder="Email" name="email" id="login-email">
-								<input type="password" placeholder="Password" name="password" id="login-password">
-							</p>
-							<p><input type="submit" value="Login"></p>
-						</form>
-					</div>
-					
-				</div>
-				<div class="col-lg-4">
-					<div class="contact-form-wrap">
-						
-						
-						<div class="contact-form-box">
-							<h4><i class="fas fa-address-book"></i> Keep In touch</h4>
-							<p>Phone: +27 71 221 8169 <br> Email: aspaza811@gmail.com</p>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- end contact form -->
+    <!-- jquery -->
+    <script src="assets/js/jquery-1.11.3.min.js"></script>
+    <!-- bootstrap -->
+    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+    <!-- count down -->
+    <script src="assets/js/jquery.countdown.js"></script>
+    <!-- isotope -->
+    <script src="assets/js/jquery.isotope-3.0.6.min.js"></script>
+    <!-- waypoints -->
+    <script src="assets/js/waypoints.js"></script>
+    <!-- owl carousel -->
+    <script src="assets/js/owl.carousel.min.js"></script>
+    <!-- magnific popup -->
+    <script src="assets/js/jquery.magnific-popup.min.js"></script>
+    <!-- mean menu -->
+    <script src="assets/js/jquery.meanmenu.min.js"></script>
+    <!-- sticker js -->
+    <script src="assets/js/sticker.js"></script>
+    <!-- form validation js -->
+    <script src="assets/js/form-validate.js"></script>
+    <!-- main js -->
+    <script src="assets/js/main.js"></script>
+    <!-- Include Firebase SDKs -->
+    <script type="module">
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-app.js";
+      import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-analytics.js";
+      import {
+        getDatabase,
+        ref,
+        push,
+        set,
+        get,
+      } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-database.js";
+      import {
+        getAuth,
+        createUserWithEmailAndPassword,
+        signInWithEmailAndPassword,
+        sendEmailVerification,
+      } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-auth.js";
 
+      // Your Firebase configuration
+      const firebaseConfig = {
+        apiKey: "AIzaSyCDvwIj5sxqJE-yIrkQhBtPLAWDlKxY-zU",
+        authDomain: "entiresystem-7ea4f.firebaseapp.com",
+        databaseURL:
+          "https://entiresystem-7ea4f-default-rtdb.asia-southeast1.firebasedatabase.app",
+        projectId: "entiresystem-7ea4f",
+        storageBucket: "entiresystem-7ea4f.appspot.com",
+        messagingSenderId: "25619596774",
+        appId: "1:25619596774:web:e296b99271610195690227",
+        measurementId: "G-LXVGY3MW22",
+      };
 
-<
+      // Initialize Firebase app
+      const app = initializeApp(firebaseConfig);
+      const analytics = getAnalytics(app);
+      const database = getDatabase(app);
+      const auth = getAuth(app); // Get the auth object
 
+      // Function to handle user registration with email and password
+      document
+        .getElementById("Register")
+        .addEventListener("submit", async function (e) {
+          e.preventDefault();
 
+          // Get form values
+          const name = document.getElementById("name").value;
+          const email = document.getElementById("email").value;
+          const password = document.getElementById("password").value;
+          const message = document.getElementById("message").value;
+          const shopName = document.getElementById("shopName").value;
+          const phone = document.getElementById("phone").value;
 
+          localStorage.setItem("username", name);
 
+          try {
+            // Create user with email and password
+            const userCredential = await createUserWithEmailAndPassword(
+              auth,
+              email,
+              password
+            );
+            const user = userCredential.user;
 
-	
-	<!-- jquery -->
-	<script src="assets/js/jquery-1.11.3.min.js"></script>
-	<!-- bootstrap -->
-	<script src="assets/bootstrap/js/bootstrap.min.js"></script>
-	<!-- count down -->
-	<script src="assets/js/jquery.countdown.js"></script>
-	<!-- isotope -->
-	<script src="assets/js/jquery.isotope-3.0.6.min.js"></script>
-	<!-- waypoints -->
-	<script src="assets/js/waypoints.js"></script>
-	<!-- owl carousel -->
-	<script src="assets/js/owl.carousel.min.js"></script>
-	<!-- magnific popup -->
-	<script src="assets/js/jquery.magnific-popup.min.js"></script>
-	<!-- mean menu -->
-	<script src="assets/js/jquery.meanmenu.min.js"></script>
-	<!-- sticker js -->
-	<script src="assets/js/sticker.js"></script>
-	<!-- form validation js -->
-	<script src="assets/js/form-validate.js"></script>
-	<!-- main js -->
-	<script src="assets/js/main.js"></script>
-	<!-- Include Firebase SDKs -->
-	<script type="module">
-		import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-app.js";
-		import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-analytics.js";
-		import { getDatabase, ref, push, set,get } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-database.js";
-		import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, sendEmailVerification } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-auth.js";
-	
-		// Your Firebase configuration
-		const firebaseConfig = {
-		apiKey: "AIzaSyCDvwIj5sxqJE-yIrkQhBtPLAWDlKxY-zU",
-		authDomain: "entiresystem-7ea4f.firebaseapp.com",
-		databaseURL: "https://entiresystem-7ea4f-default-rtdb.asia-southeast1.firebasedatabase.app",
-		projectId: "entiresystem-7ea4f",
-		storageBucket: "entiresystem-7ea4f.appspot.com",
-		messagingSenderId: "25619596774",
-		appId: "1:25619596774:web:e296b99271610195690227",
-		measurementId: "G-LXVGY3MW22"
-		};
-	
-		
-		// Initialize Firebase app
-		const app = initializeApp(firebaseConfig);
-		const analytics = getAnalytics(app);
-		const database = getDatabase(app);
-		const auth = getAuth(app); // Get the auth object
-		
-	
-		// Function to handle user registration with email and password
-		document.getElementById('Register').addEventListener('submit', async function(e) {
-			e.preventDefault();
-	
-			// Get form values
-			const name = document.getElementById('name').value;
-			const email = document.getElementById('email').value;
-			const password = document.getElementById('password').value;
-			const message = document.getElementById('message').value;
-			const shopName = document.getElementById('shopName').value;
-			const phone = document.getElementById('phone').value;
-			
-			localStorage.setItem('username',name);
-	
-	
-			try {
-				// Create user with email and password
-				const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-				const user = userCredential.user;
-	
-				// Send email verification
-				await sendEmailVerification(auth.currentUser);
-	
-				// Reference to the Firebase Realtime Database
-				const databaseRef = ref(database, 'Staff');
-	
-				// Push data to Firebase Realtime Database for shoppers collection
-				const newStaffRef = push(databaseRef);
-				set(newStaffRef, {
-					userId: user.uid, // Add user ID to shopper data
-					name: name,
-					email: email,
-					phone: phone,
-					shopName: shopName,
-					message: message
-				}).then(() => {
-					console.log("Staff data added to Firebase Realtime Database");
-					// Store email and username in local storage
-					localStorage.setItem('userEmail', email);
-					localStorage.setItem('username', name);
-					console.log("User data stored in local storage");
-					// Reset form
-					document.getElementById('Register').reset();
-				}).catch((error) => {
-					console.error("Error adding staff data to Firebase Realtime Database:", error);
-				});
-			} catch (error) {
-				console.error("Error creating user:", error);
-				// Check if the error is related to an invalid email
-				if (error.code === "auth/invalid-email") {
-					// Display an alert message indicating that the email is not valid
-					alert("Invalid email. Please provide a valid email address.");
-				}
-			}
-		});
-	
-		// Function to handle user login with email and password
-		document.getElementById('Login').addEventListener('submit', async function(e) {
-			e.preventDefault();
-	
-			// Get email and password from the form
-			const email = document.getElementById('login-email').value;
-			const password = document.getElementById('login-password').value;
-	
-			try {
-				// Sign in user with email and password
-				const userCredential = await signInWithEmailAndPassword(auth, email, password);
-				const user = userCredential.user;
-	
-				// Check if the user's email is verified
-				if (user.emailVerified) {
-					// User is signed in and email is verified, allow access to protected pages
-					localStorage.setItem('userEmail', email);
-					console.log('email stored in local storage');
-					// Redirect to the desired page
-					window.location.href = '/shop/';
-				} else {
-					// User's email is not verified, display an alert
-					alert("Please verify your email address before logging in.");
-				}
-			} catch (error) {
-				console.error("Error signing in:", error);
-				// Display error message to the user
-				alert("An error occurred during login. Please check your email and password and try again.");
-			}
-		});
-	
-	</script>
-	
-	
-	
-	
-</body>
+            // Send email verification
+            await sendEmailVerification(auth.currentUser);
+
+            // Reference to the Firebase Realtime Database
+            const databaseRef = ref(database, "Staff");
+
+            // Push data to Firebase Realtime Database for shoppers collection
+            const newStaffRef = push(databaseRef);
+            set(newStaffRef, {
+              userId: user.uid, // Add user ID to shopper data
+              name: name,
+              email: email,
+              phone: phone,
+              shopName: shopName,
+              message: message,
+            })
+              .then(() => {
+                console.log("Staff data added to Firebase Realtime Database");
+                // Store email and username in local storage
+                localStorage.setItem("userEmail", email);
+                localStorage.setItem("username", name);
+                console.log("User data stored in local storage");
+                // Reset form
+                document.getElementById("Register").reset();
+              })
+              .catch((error) => {
+                console.error(
+                  "Error adding staff data to Firebase Realtime Database:",
+                  error
+                );
+              });
+          } catch (error) {
+            console.error("Error creating user:", error);
+            // Check if the error is related to an invalid email
+            if (error.code === "auth/invalid-email") {
+              // Display an alert message indicating that the email is not valid
+              alert("Invalid email. Please provide a valid email address.");
+            }
+          }
+        });
+
+      // Function to handle user login with email and password
+      document
+        .getElementById("Login")
+        .addEventListener("submit", async function (e) {
+          e.preventDefault();
+
+          // Get email and password from the form
+          const email = document.getElementById("login-email").value;
+          const password = document.getElementById("login-password").value;
+
+          try {
+            // Sign in user with email and password
+            const userCredential = await signInWithEmailAndPassword(
+              auth,
+              email,
+              password
+            );
+            const user = userCredential.user;
+
+            // Check if the user's email is verified
+            if (user.emailVerified) {
+              // User is signed in and email is verified, allow access to protected pages
+              localStorage.setItem("userEmail", email);
+              console.log("email stored in local storage");
+              // Redirect to the desired page
+              window.location.href = "/shop/";
+            } else {
+              // User's email is not verified, display an alert
+              alert("Please verify your email address before logging in.");
+            }
+          } catch (error) {
+            console.error("Error signing in:", error);
+            // Display error message to the user
+            alert(
+              "An error occurred during login. Please check your email and password and try again."
+            );
+          }
+        });
+    </script>
+  </body>
 </html>
