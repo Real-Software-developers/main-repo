@@ -5,7 +5,8 @@
     "start": "sirv ./src public --cors --single --no-clear --port 8000",
     "test": "jest --passWithNoTests",
     "coverage": "jest --coverage",
-    "codecov": "codecov"
+    "codecov": "codecov",
+    "ci-build": "npm run build" 
   },
   "devDependencies": {
     "@azure/static-web-apps-cli": "^0.2.1",

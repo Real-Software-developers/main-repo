@@ -56,33 +56,9 @@
 						<nav class="main-menu">
 							<ul>
 								
-								<li><a href="about.html">About</a></li>
-								<li><a href="#">Pages</a>
-									<ul class="sub-menu">
-										
-										<li><a href="about.html">About</a></li>
-										<li><a href="cart_checkout/index.html">Cart</a></li>
-										<li><a href="cart_checkout/index.html">Check Out</a></li>
-										<li><a href="contact/index.html">Contact</a></li>
-										
-										<li><a href="/">Shop</a></li>
-									</ul>
-								</li>
-								<li><a href="contact.html">Contact</a></li>
-								<li><a href="shop.html">Shop</a>
-									<ul class="sub-menu">
-										<li><a href="shop.html">Shop</a></li>
-										<li><a href="checkout.html">Check Out</a></li>
-										<li><a href="single-product.html">Single Product</a></li>
-										<li><a href="cart_checkout/">Cart</a></li>
-									</ul>
-								</li>
-								<li>
-									<div class="header-icons">
-										<a class="shopping-cart" href="cart_checkout/index.html"><i class="fas fa-shopping-cart"></i></a>
-										<a class="mobile-hide search-bar-icon" href="#"><i class="fas fa-search"></i></a>
-									</div>
-								</li>
+								
+								
+								
 							</ul>
 						</nav>
 						<a class="mobile-show search-bar-icon" href="#"><i class="fas fa-search"></i></a>
@@ -232,16 +208,7 @@
 			<div class="row" id="some.">
 				
 				
-					<div class="col-lg-4 col-md-6 text-center">
-						<div class="single-product-item">
-							<div class="product-image">
-								<a href="#"><img src="assets/img/products/product-img-1.jpg" alt=""></a>
-							</div>
-							<h3 id ="description">description </h3>
-							<p class="product-price" id="shopName"><span id="location">location</span> NameOfShop </p>
-							<a href="#" class="cart-btn"><i class="fas fa-shopping-cart"></i> Visit Shop.</a>
-						</div>
-					</div>
+					
 					
 				
 					
@@ -520,14 +487,13 @@ function   displayProductsForShop(shopName){
 
                     const cartBtn = document.createElement('a');
                     cartBtn.classList.add('cart-btn');
-                    cartBtn.href = 'cart_checkout/';
                     cartBtn.innerHTML = '<i class="fas fa-shopping-cart"></i> Remove Product.';
 
                     // Append elements to single product item
                     singleProductItem.appendChild(productImage);
                     singleProductItem.appendChild(pName);
                     singleProductItem.appendChild(productPrice);
-                    singleProductItem.appendChild(cartBtn);
+                    //singleProductItem.appendChild(cartBtn);
 
                     // Append single product item to row container
                     shopItem.appendChild(singleProductItem);
