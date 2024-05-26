@@ -79,7 +79,43 @@
 								</li>
 								<li>
 									<div class="header-icons">
-										<a class="shopping-cart" href="#"><i class="fas fa-shopping-cart"></i></a>
+
+										<a class="shopping-cart" href="/getstuff/cart_checkout/">
+											<i class="fas fa-shopping-cart" id="cartIcon"></i>
+											<span id="cartCount" class="badge badge-pill badge-primary">0</span>
+										</a>
+										<style>
+											.shopping-cart {
+    position: relative;
+    font-size: 2em; /* Increase the size of the cart icon */
+}
+
+.badge {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    padding: 5px 10px;
+    border-radius: 50%;
+    background-color: #CC5500;
+    color: white;
+    font-size: 0.75em; /* Increase the size of the badge */
+    animation: pulse 1s infinite;
+}
+
+/* Animation for pulsing effect */
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.2);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+										</style>
 										<a class="mobile-hide search-bar-icon" href="#"><i class="fas fa-search"></i></a>
 									</div>
 								</li>
@@ -415,8 +451,6 @@
 			</div>
 		</div>
 	</div>
-	<!-- end copyright -->
-	
 	<script type="module">
 		// Import the functions you need from the SDKs you need
 		import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-app.js";
@@ -440,141 +474,158 @@
 		const analytics = getAnalytics(app);
 		const database = getDatabase();
 	
-		// Function to retrieve and display shop owners data
-		/*function displayShopOwners() {
-			const shopOwnersRef = ref(database, 'shopOwners');
-			get(shopOwnersRef).then((snapshot) => {
+		let cartItems = [];
+	
+		// Function to retrieve and display products data
+		function displayProducts(shopName) {
+			const productsRef = ref(database, 'Products');
+			get(productsRef).then((snapshot) => {
 				if (snapshot.exists()) {
-					console.log("Shop Owners Data:");
+					console.log("Products Data:");
+	
+					// Get the container element for products
+					const rowContainer = document.getElementById('some.');
+					// Clear previous content
+					rowContainer.innerHTML = '';
+	
 					snapshot.forEach((childSnapshot) => {
-						console.log(childSnapshot.key, childSnapshot.val());
+						const productData = childSnapshot.val();
+	
+						// Check if the product belongs to the specified shop
+						if (productData.shopName === shopName) {
+							// Create a card for a single product
+							const shopItem = document.createElement('div');
+							shopItem.classList.add('col-lg-4', 'col-md-6', 'text-center');
+	
+							const singleProductItem = document.createElement('div');
+							singleProductItem.classList.add('single-product-item');
+							// an image on a card
+							const productImage = document.createElement('div');
+							productImage.classList.add('product-image');
+							productImage.innerHTML = `<a href="#"><img src="${productData.imageUrl}" alt=""></a>`;
+	
+							function truncateDescription(description, maxLength = 35) {
+								// Split the description into lines
+								let lines = description.split('\n');
+	
+								// Take the first line
+								let firstLine = lines[0];
+	
+								// If the first line is longer than the maxLength, truncate it and add ellipses
+								if (firstLine.length > maxLength) {
+									firstLine = firstLine.substring(0, maxLength) + '...';
+								}
+	
+								return firstLine;
+							}
+							// name of product
+							const pName = document.createElement('h3');
+							pName.textContent = productData.productName; // first bolded text
+							// product description
+							const productPrice = document.createElement('p');
+							productPrice.classList.add('product-price');
+							productPrice.innerHTML = `<span>${truncateDescription(productData.description)}</span> ${`R ${productData.productPrice}`}`;
+	
+							const cartBtn = document.createElement('a');
+							cartBtn.classList.add('cart-btn');
+							//cartBtn.href = 'cart_checkout/';
+							cartBtn.innerHTML = '<i class="fas fa-shopping-cart"></i> Add to cart';
+	
+							// Append elements to single product item
+							singleProductItem.appendChild(productImage);
+							singleProductItem.appendChild(pName);
+							singleProductItem.appendChild(productPrice);
+							singleProductItem.appendChild(cartBtn);
+	
+							// Append single product item to row container
+							shopItem.appendChild(singleProductItem);
+							rowContainer.appendChild(shopItem);
+	
+							cartBtn.addEventListener("click", function () {
+								// Retrieve the product data from the current page
+								const productName = productData.productName;
+								const productPrice = productData.productPrice;
+								const url = productData.imageUrl;
+	
+								// Add the product data to the array
+								cartItems.push({
+									productName: productName,
+									productPrice: productPrice,
+									url: url
+								});
+	
+								// Convert the array to a JSON string
+								const cartItemsJSON = JSON.stringify(cartItems);
+	
+								// Store the JSON string in local storage
+								localStorage.setItem("cartItems", cartItemsJSON);
+	
+								// Update cart count
+								updateCartCount();
+	
+								console.log(cartItems);
+							});
+						}
 					});
 				} else {
-					console.log("No shop owners found.");
+					console.log("No products found.");
 				}
 			}).catch((error) => {
-				console.error("Error retrieving shop owners data:", error);
+				console.error("Error retrieving products data:", error);
 			});
-		}*/
-		let cartItems = [];
-// Function to retrieve and display products data
-function displayProducts(shopName) {
-    const productsRef = ref(database, 'Products');
-    get(productsRef).then((snapshot) => {
-        if (snapshot.exists()) {
-            console.log("Products Data:");
-
-            // Get the container element for products
-            const rowContainer = document.getElementById('some.');
-            // Clear previous content
-            rowContainer.innerHTML = '';
-
-            snapshot.forEach((childSnapshot) => {
-                const productData = childSnapshot.val();
-               // console.log(productData);
-
-                // Check if the product belongs to the specified shop
-                if (productData.shopName === shopName) {
-                    // Create a card for a single product
-                    const shopItem = document.createElement('div');
-                    shopItem.classList.add('col-lg-4', 'col-md-6', 'text-center');
-
-                    const singleProductItem = document.createElement('div');
-                    singleProductItem.classList.add('single-product-item');
-                     // an image on a card
-                    const productImage = document.createElement('div');
-                    productImage.classList.add('product-image');
-					productImage.innerHTML = `<a href="#"><img src="${productData.imageUrl}" alt=""></a>`;
-					function truncateDescription(description, maxLength = 35) {
-    // Split the description into lines
-    let lines = description.split('\n');
-
-    // Take the first line
-    let firstLine = lines[0];
-
-    // If the first line is longer than the maxLength, truncate it and add ellipses
-    if (firstLine.length > maxLength) {
-        firstLine = firstLine.substring(0, maxLength) + '...';
-    }
-
-    return firstLine;
-}
-                       // name of product
-                    const pName = document.createElement('h3');
-                    pName.textContent = productData.productName;      // first bolded text
-                       // product description 
-                    const productPrice = document.createElement('p');
-                    productPrice.classList.add('product-price');
-                    productPrice.innerHTML = `<span>${truncateDescription(productData.description)}</span> ${productData.productPrice}`;
-
-                    const cartBtn = document.createElement('a');
-                    cartBtn.classList.add('cart-btn');
-                    //cartBtn.href = 'cart_checkout/';
-                    cartBtn.innerHTML = '<i class="fas fa-shopping-cart"></i> Add to cart';
-
-                    // Append elements to single product item
-                    singleProductItem.appendChild(productImage);
-                    singleProductItem.appendChild(pName);
-                    singleProductItem.appendChild(productPrice);
-                    singleProductItem.appendChild(cartBtn);
-
-                    // Append single product item to row container
-                    shopItem.appendChild(singleProductItem);
-                    rowContainer.appendChild(shopItem);
-					
-					cartBtn.addEventListener("click", function() {
-    // Create an empty array to store product data
-					
-
-					// Retrieve the product data from the current page
-					const productName = productData.productName; // Replace this with the actual way you retrieve product name
-					const productPrice = productData.productPrice; // Replace this with the actual way you retrieve product price
-					// Other product data...
-
-					// Add the product data to the array
-					cartItems.push({
-						productName: productName,
-						productPrice: productPrice
-						// Add other product data here as needed
-					});
-
-					// Convert the array to a JSON string
-					const cartItemsJSON = JSON.stringify(cartItems);
-
-					// Store the JSON string in local storage
-					localStorage.setItem("cartItems", cartItemsJSON);
-					
-					console.log(cartItems);
-					// Redirect the user to the cart checkout page
-					//window.location = "/src/getstuff/cart_checkout/";
-				});
-
-                }
-            });
-        } else {
-            console.log("No products found.");
-        }
-    }).catch((error) => {
-        console.error("Error retrieving products data:", error);
-    });
-}
-
-// Retrieve shop name from local storage
-const n = localStorage.getItem("Shopname");
-const nn = document.getElementById('nn');
-
-// Check if shopName exists in local storage
-if (n) {
-	nn.innerText=`Welcome to ${localStorage.getItem("Shopname")}`;
-    // Call the displayProducts function with the retrieved shopName
-    displayProducts(n);
-} else {
-    console.log("Shop name not found in local storage.");
-}
-
-		// Call function to display products data
-		//displayShopOwners();
+		}
+	
+		// Retrieve shop name from local storage
+		const n = localStorage.getItem("Shopname");
+		const nn = document.getElementById('nn');
+	
+		// Check if shopName exists in local storage
+		if (n) {
+			nn.innerText = `Welcome to ${localStorage.getItem("Shopname")}`;
+			// Call the displayProducts function with the retrieved shopName
+			displayProducts(n);
+		} else {
+			console.log("Shop name not found in local storage.");
+		}
+	
+		// Function to update cart count
+		function updateCartCount() {
+			const cartCountElement = document.getElementById('cartCount');
+			cartCountElement.textContent = cartItems.length;
+			cartCountElement.classList.add('pulse-animation');
+			setTimeout(() => {
+				cartCountElement.classList.remove('pulse-animation');
+			}, 1000);
+		}
+	
+		// Call function to update cart count on page load
+		updateCartCount();
+	
 	</script>
+	
+	<!-- jquery -->
+	<script src="assets/js/jquery-1.11.3.min.js"></script>
+	<!-- bootstrap -->
+	<script src="assets/bootstrap/js/bootstrap.min.js"></script>
+	<!-- count down -->
+	<script src="assets/js/jquery.countdown.js"></script>
+	<!-- isotope -->
+	<script src="assets/js/jquery.isotope-3.0.6.min.js"></script>
+	<!-- waypoints -->
+	<script src="assets/js/waypoints.js"></script>
+	<!-- owl carousel -->
+	<script src="assets/js/owl.carousel.min.js"></script>
+	<!-- magnific popup -->
+	<script src="assets/js/jquery.magnific-popup.min.js"></script>
+	<!-- mean menu -->
+	<script src="assets/js/jquery.meanmenu.min.js"></script>
+	<!-- sticker js -->
+	<script src="assets/js/sticker.js"></script>
+	<!-- main js -->
+	<script src="assets/js/main.js"></script>
+
+
+
 	
 	<!-- jquery -->
 	<script src="assets/js/jquery-1.11.3.min.js"></script>
