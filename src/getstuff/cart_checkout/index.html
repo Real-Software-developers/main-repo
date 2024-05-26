@@ -11,6 +11,8 @@
 
 	<!-- favicon -->
 	<link rel="shortcut icon" type="image/png" href="assets/img/favicon.png">
+	<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
 	<!-- google font -->
 	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css?family=Poppins:400,700&display=swap" rel="stylesheet">
@@ -63,10 +65,15 @@
 	</div>
 	<!-- end breadcrumb section -->
 
-	<!-- cart -->
+	<div class="container mt-3">
+		<div id="alert-container"></div>
+	</div>
+	
+
 	<div class="cart-section mt-150 mb-150">
-		<div class="container" id="container">
-			<div class="row" id="row">
+		<div class="container">
+			<div class="row">
+				<!-- Cart Items -->
 				<div class="col-lg-8 col-md-12">
 					<div class="cart-table-wrap">
 						<table class="cart-table">
@@ -76,37 +83,19 @@
 									<th class="product-image">Product Image</th>
 									<th class="product-name">Name</th>
 									<th class="product-price">Price</th>
-									
 								</tr>
 							</thead>
 							<tbody>
-								<tr class="table-body-row">
-									<td class="product-remove"><a href="#"><i class="far fa-window-close"></i></a></td>
-									<td class="product-image"><img src="assets/img/products/product-img-1.jpg" alt=""></td>
-									<td class="product-name">Strawberry</td>
-									<td class="product-price">price</td>
-									
-								</tr>
-								<tr class="table-body-row">
-									<td class="product-remove"><a href="#"><i class="far fa-window-close"></i></a></td>
-									<td class="product-image"><img src="assets/img/products/product-img-2.jpg" alt=""></td>
-									<td class="product-name">Berry</td>
-									<td class="product-price">price</td>
-									
-								</tr>
-								<tr class="table-body-row">
-									<td class="product-remove"><a href="#"><i class="far fa-window-close"></i></a></td>
-									<td class="product-image"><img src="assets/img/products/product-img-3.jpg" alt=""></td>
-									<td class="product-name">Lemon</td>
-									<td class="product-price">R0.00</td>
-								
-								</tr>
+								<td class="product-remove"><button class="remove-btn"><i class="far fa-window-close"></i></button></td>
+
+								<!-- Cart items will be dynamically inserted here -->
 							</tbody>
 						</table>
 					</div>
 				</div>
-
-				<div class="col-lg-4">
+	
+				<!-- Order Summary -->
+				<div class="col-lg-4 col-md-12">
 					<div class="total-section">
 						<table class="total-table" id="statistics">
 							<thead class="total-table-head">
@@ -118,10 +107,10 @@
 							<tbody>
 								<tr class="total-data">
 									<td><strong>Subtotal: </strong></td>
-									<td>price-of-selected-product</td>
+									<td class="total-price">price-of-selected-product</td>
 								</tr>
 								<tr class="total-data">
-									<td ><strong>Shipping: </strong></td>
+									<td><strong>Shipping: </strong></td>
 									<td id="Shipping">price-of-selected-product</td>
 								</tr>
 								<tr class="total-data">
@@ -135,14 +124,50 @@
 							<a href="#" class="boxed-btn black" id="place-order">Place Order!</a>
 						</div>
 					</div>
-
-					
 				</div>
 			</div>
 		</div>
 	</div>
-	<!-- end cart -->
+<style>
+	.cart-section {
+    margin-top: 150px;
+    margin-bottom: 150px;
+}
 
+.cart-table-wrap {
+    overflow-x: auto;
+}
+
+.total-section {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.total-table {
+    width: 100%;
+    margin-bottom: 20px;
+}
+.fa-window-close{
+	border-radius: 5px;
+	width: 20px;
+	height: 20px;
+	color: red;
+}
+
+.remove-btn{
+	border-radius: 5px;
+	background-color: azure;
+}
+
+@media (max-width: 768px) {
+    .cart-buttons .boxed-btn {
+        margin-bottom: 15px;
+    }
+}
+
+</style>	
 	
 
 	
@@ -217,92 +242,10 @@
 	<script src="assets/js/sticker.js"></script>
 	<!-- main js -->
 	<script src="assets/js/main.js"></script>
-	<script>
-		// Retrieve the JSON string from local storage
-//const cartItemsJSON = localStorage.getItem("cartItems");
-
-// Parse the JSON string back into an array
-		//const cartItems = JSON.parse(cartItemsJSON);
-
-		document.addEventListener("DOMContentLoaded", function() {
-    // Retrieve cart items from local storage
-    const cartItemsJSON = localStorage.getItem("cartItems");
-    const cartItems = JSON.parse(cartItemsJSON);
-
-    // Get the tbody element of the cart table
-    const tbody = document.querySelector(".cart-table tbody");
-
-    // Get the total price cell
-    const totalPriceCell = document.querySelector(".total-data td:last-child");
-	const ShippingPriceCell = document.getElementById("Shipping");
-	const grandtotal = document.getElementById("total.");
 
 
-	ShippingPriceCell.innerHTML="R30.00";
-    // Clear previous content in the tbody
-    tbody.innerHTML = "";
 
-    // Initialize total price
-    let totalPrice = 0;
 
-    // Check if cartItems is not null and not undefined, and is an array
-    if (Array.isArray(cartItems)) {
-        // Iterate over the cart items and update the table
-        cartItems.forEach(item => {
-            if (item && typeof item === 'object') {
-                // Create a new row for the cart item
-                const newRow = document.createElement("tr");
-                newRow.classList.add("table-body-row");
-
-                // Create table cells for each property of the cart item
-                const removeCell = document.createElement("td");
-                removeCell.classList.add("product-remove");
-                removeCell.innerHTML = '<a href="#"><i class="far fa-window-close"></i></a>';
-                newRow.appendChild(removeCell);
-
-                const imageCell = document.createElement("td");
-                imageCell.classList.add("product-image");
-                imageCell.innerHTML = '<img src="assets/img/products/product-img-1.jpg" alt="">';
-                newRow.appendChild(imageCell);
-
-                const nameCell = document.createElement("td");
-                nameCell.classList.add("product-name");
-                nameCell.textContent = item.productName; // Accessing productName property
-                newRow.appendChild(nameCell);
-
-                const priceCell = document.createElement("td");
-                priceCell.classList.add("product-price");
-                priceCell.textContent = item.productPrice; // Accessing productPrice property
-                newRow.appendChild(priceCell);
-
-                // const quantityCell = document.createElement("td");
-                // quantityCell.classList.add("product-quantity");
-                // quantityCell.innerHTML = '<input type="number" placeholder="0">';
-                // newRow.appendChild(quantityCell);
-
-                // const totalCell = document.createElement("td");
-                // totalCell.classList.add("product-total");
-                // totalCell.textContent = 'x'; // Placeholder value
-                // newRow.appendChild(totalCell);
-
-                // Add item price to total price
-                totalPrice += parseFloat(item.productPrice);
-
-                // Append the new row to the tbody
-                tbody.appendChild(newRow);
-            } else {
-                console.error("Invalid cart item format:", item);
-            }
-        });
-    } else {
-        console.error("Invalid cart items format:", cartItems);
-    }
-
-    // Update the total price cell
-    totalPriceCell.textContent = ` R ${totalPrice.toFixed(2)}`; // Assuming 2 decimal places for currency
-	grandtotal.innerHTML=`R ${(30+parseInt(totalPrice.toFixed(2))).toFixed(2)}`;
-});
-	</script>
 
 <script type="module">
     // Import the functions you need from the SDKs you need
@@ -320,10 +263,147 @@
         appId: "1:25619596774:web:e296b99271610195690227",
         measurementId: "G-LXVGY3MW22"
     };
-
+ // Function to show Bootstrap alert
+ function showAlert(message, type) {
+        const alertContainer = document.getElementById("alert-container");
+        const alert = document.createElement("div");
+        alert.className = `alert alert-${type} alert-dismissible fade show`;
+        alert.role = "alert";
+        alert.innerHTML = `
+            ${message}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        `;
+        alertContainer.appendChild(alert);
+        
+        // Automatically close the alert after 3 seconds
+        setTimeout(() => {
+            $(alert).alert('close');
+        }, 3000);
+    }
     // Initialize Firebase
     const app = initializeApp(firebaseConfig);
     const database = getDatabase(app);
+
+
+
+
+
+
+	document.addEventListener("DOMContentLoaded", function() {
+    // Retrieve cart items from local storage
+    const cartItemsJSON = localStorage.getItem("cartItems");
+    let cartItems = JSON.parse(cartItemsJSON);
+
+    // Get the tbody element of the cart table
+    const tbody = document.querySelector(".cart-table tbody");
+
+    // Get the total price cells
+    const totalPriceCell = document.querySelector(".total-price");
+    const shippingPriceCell = document.getElementById("Shipping");
+    const grandTotalCell = document.getElementById("total.");
+
+    // Set shipping price
+    const shippingPrice = 30.00;
+    shippingPriceCell.innerHTML = `R${shippingPrice.toFixed(2)}`;
+
+    // Function to render cart items
+    function renderCartItems() {
+        // Clear the tbody
+        tbody.innerHTML = "";
+
+        // Initialize total price
+        let totalPrice = 0;
+
+        // Check if cartItems is not null and is an array
+        if (Array.isArray(cartItems)) {
+            // Iterate over the cart items and update the table
+            cartItems.forEach((item, index) => {
+                if (item && typeof item === 'object') {
+                    // Create a new row for the cart item
+                    const newRow = document.createElement("tr");
+                    newRow.classList.add("table-body-row");
+
+                    // Create table cells for each property of the cart item
+                    const removeCell = document.createElement("td");
+                    removeCell.classList.add("product-remove");
+                    const removeButton = document.createElement("button");
+                    removeButton.classList.add("remove-btn");
+                    removeButton.innerHTML = '<i class="far fa-window-close"></i>';
+                    removeButton.addEventListener('click', function() {
+                        removeCartItem(index);
+                    });
+                    removeCell.appendChild(removeButton);
+                    newRow.appendChild(removeCell);
+
+                    const imageCell = document.createElement("td");
+                    imageCell.classList.add("product-image");
+                    imageCell.innerHTML = `<img src="${item.url}" alt="">`;
+                    newRow.appendChild(imageCell);
+
+                    const nameCell = document.createElement("td");
+                    nameCell.classList.add("product-name");
+                    nameCell.textContent = item.productName;
+                    newRow.appendChild(nameCell);
+
+                    const priceCell = document.createElement("td");
+                    priceCell.classList.add("product-price");
+                    priceCell.textContent = item.productPrice;
+                    newRow.appendChild(priceCell);
+
+                    // Add item price to total price
+                    totalPrice += parseFloat(item.productPrice);
+
+                    // Append the new row to the tbody
+                    tbody.appendChild(newRow);
+                } else {
+                    console.error("Invalid cart item format:", item);
+                }
+            });
+        } else {
+            console.error("Invalid cart items format:", cartItems);
+        }
+
+        // Update the total price cell
+        totalPriceCell.textContent = `R${totalPrice.toFixed(2)}`;
+        grandTotalCell.innerHTML = `R${(shippingPrice + totalPrice).toFixed(2)}`;
+    }
+
+    // Function to remove an item from the cart
+    function removeCartItem(index) {
+        // Remove the item from the cartItems array
+        cartItems.splice(index, 1);
+
+        // Update local storage
+        localStorage.setItem("cartItems", JSON.stringify(cartItems));
+
+        // Re-render the cart items
+        renderCartItems();
+    }
+
+    // Function to show Bootstrap alert
+    function showAlert(message, type) {
+        const alertContainer = document.getElementById("alert-container");
+        const alert = document.createElement("div");
+        alert.className = `alert alert-${type} alert-dismissible fade show`;
+        alert.role = "alert";
+        alert.innerHTML = `
+            ${message}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        `;
+        alertContainer.appendChild(alert);
+        
+        // Automatically close the alert after 3 seconds
+        setTimeout(() => {
+            $(alert).alert('close');
+        }, 3000);
+    }
+
+    // Initial render of cart items
+    renderCartItems();
 
     // Function to place order
     function placeOrder() {
@@ -331,10 +411,15 @@
         const username = localStorage.getItem("username");
         const userEmail = localStorage.getItem("userEmail");
         const shopName = localStorage.getItem("Shopname");
-        const cartItemsJSON = localStorage.getItem("cartItems");
-        const cartItems = JSON.parse(cartItemsJSON);
 
-        if (username && userEmail && Array.isArray(cartItems)) {
+        // Check if cartItems is an array and has items
+        if (!Array.isArray(cartItems) || cartItems.length === 0) {
+            showAlert('You cannot order nothing, go back and shop <a href="/getstuff/" class="alert-link">HERE!</a>', "warning");
+            return;
+        }
+
+        // Check if user details are available
+        if (username && userEmail) {
             // Create a new order object
             const newOrder = {
                 username: username,
@@ -351,21 +436,85 @@
             const newOrderRef = push(ordersRef);
             set(newOrderRef, newOrder)
                 .then(() => {
-                    console.log("Order placed successfully!");
+
                     // Optionally clear the cart and local storage
                     localStorage.removeItem("cartItems");
-                    alert("Order placed successfully!");
+                    showAlert('Order placed successfully! Track it <a href="/trackit/" class="alert-link">HERE!</a>', "success");
+                    // Re-render the cart items
+                    renderCartItems();
                 })
                 .catch((error) => {
                     console.error("Error placing order:", error);
+                    showAlert("Error placing order. Please try again.", "danger");
                 });
         } else {
             console.error("Invalid order data");
+            showAlert("Invalid order data. Please check your information.", "danger");
         }
     }
 
     // Add event listener to the "Place Order" button
     document.getElementById("place-order").addEventListener("click", placeOrder);
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    // // Function to place order
+    // function placeOrder() {
+    //     // Retrieve cart items and user details from local storage
+    //     const username = localStorage.getItem("username");
+    //     const userEmail = localStorage.getItem("userEmail");
+    //     const shopName = localStorage.getItem("Shopname");
+    //     const cartItemsJSON = localStorage.getItem("cartItems");
+    //     const cartItems = JSON.parse(cartItemsJSON);
+
+    //     if (username && userEmail && Array.isArray(cartItems)) {
+    //         // Create a new order object
+    //         const newOrder = {
+    //             username: username,
+    //             email: userEmail,
+    //             shopName: shopName,
+    //             items: cartItems,
+    //             timestamp: Date.now()
+    //         };
+
+    //         // Get a reference to the orders collection
+    //         const ordersRef = ref(database, 'orders');
+
+    //         // Push the new order to the orders collection
+    //         const newOrderRef = push(ordersRef);
+    //         set(newOrderRef, newOrder)
+    //             .then(() => {
+    //                 console.log("Order placed successfully!");
+    //                 // Optionally clear the cart and local storage
+    //                 localStorage.removeItem("cartItems");
+    //                 showAlert("Order placed successfully!", "success");
+    //             })
+    //             .catch((error) => {
+    //                 console.error("Error placing order:", error);
+    //             });
+    //     } else {
+    //         console.error("Invalid order data");
+    //     }
+    // }
+
+    // // Add event listener to the "Place Order" button
+    // document.getElementById("place-order").addEventListener("click", placeOrder);
 </script>
 
 </body>
